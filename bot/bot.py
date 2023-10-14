@@ -4,7 +4,9 @@ import buttons.buttons as buttons
 from telebot.storage import StateMemoryStorage
 from telebot import custom_filters
 import db.db as db
-
+import logging
+logging.basicConfig(level=logging.WARNING, filename="py_log.log",filemode="w",
+                    format="%(asctime)s %(levelname)s %(message)s")
 
 state_storage = StateMemoryStorage()
 bot = telebot.TeleBot('6652605107:AAFLxE_GAkvr-HC4AKW3h_WotvYYiOBrSdk',state_storage=state_storage)
