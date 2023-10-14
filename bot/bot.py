@@ -89,16 +89,24 @@ def main():
         if message.text == 'Удалить группу':
             db.delete_group(group_id)
             bot.send_message(message.chat.id, "Вы удалили группу")
-        if message.text == 'Удалить участника':
+        elif message.text == 'Удалить участника':
             bot.send_message(message.chat.id,'Введите никнейм участника в формате @username')
             bot.set_state(message.from_user.id, states.Groups.wait_username)
+        else:
+            bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
+            bot.set_state(message.from_user.id, states.Groups.chooseactionadmin)
             
     @bot.message_handler(state=states.Groups.wait_username)
     def user_delete(message):
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
             group_id = data['group_id']
         rez = db.delete_member(message.text,group_id)
-        print(rez)
+        if rez == 0:
+            bot.send_message(message.chat.id,'Пользователь не найден')
+        else:
+            bot.send_message(message.chat.id,'Пользователь успешно удален')
+            bot.set_state(message.from_user.id, states.Groups.edit)
+            bot.send_message(message.chat.id,"Выберите действие",parse_mode='HTML',reply_markup=buttons.changegr_markup)
         
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'admin')
     def get_group_info(call):
@@ -117,7 +125,7 @@ def main():
             invite_id = "Твой идентификатор группы: " + message.text +"_"+ str(db.get_id_group(message.chat.id,message.text))
             bot.send_message(message.chat.id,invite_id,reply_markup=buttons.choosepoint_markup)
             bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
-    
+
     
 
     bot.add_custom_filter(custom_filters.StateFilter(bot))
