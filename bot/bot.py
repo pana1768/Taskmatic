@@ -33,7 +33,7 @@ def main():
         a = "@" + message.from_user.username
         db.register_user(message.chat.id,message.text,a)
         bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
-        
+        bot.send_message(message.chat.id, "Выберите действие:",reply_markup=buttons.choosepoint_markup)
 
     @bot.message_handler(state=states.RandomStates.start_work)
     def start_work(message):
