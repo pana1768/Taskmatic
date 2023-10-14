@@ -76,9 +76,9 @@ def main():
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'adminedit')
     def get_group_info(call):
         group_id = call.data.split('_')[1]
-        with bot.retrieve_data(call.message.from_user.id,call.message.chat.id) as data:
+        with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
             data['group_id'] = group_id
-        bot.set_state(call.message.from_user.id, states.Groups.edit)
+        bot.set_state(call.from_user.id, states.Groups.edit)
         bot.send_message(call.message.chat.id,"Выберите действие",parse_mode='HTML',reply_markup=buttons.changegr_markup)
         
     @bot.message_handler(state=states.Groups.edit)
