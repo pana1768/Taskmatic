@@ -22,7 +22,9 @@ def main():
         
     @bot.message_handler(state=states.RandomStates.register)
     def register(message):
-        db.register_user(message.chat.id,message.text)
+        a = "@"+message.from_user.username
+        print(a)
+        db.register_user(message.chat.id,message.text,a)
         bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
         
 

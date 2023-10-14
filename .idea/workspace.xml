@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="db">
+    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="registation_final">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot/bot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/db.py" afterDir="false" />
@@ -47,6 +47,14 @@
       <option name="presentableId" value="Default" />
       <updated>1697267121143</updated>
     </task>
+    <task id="LOCAL-00001" summary="registation_final">
+      <created>1697288479095</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1697288479095</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -63,6 +71,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="db" />
     <MESSAGE value="check_user" />
-    <option name="LAST_COMMIT_MESSAGE" value="check_user" />
+    <MESSAGE value="registation_final" />
+    <option name="LAST_COMMIT_MESSAGE" value="registation_final" />
   </component>
 </project>
