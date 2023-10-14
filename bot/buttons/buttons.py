@@ -17,4 +17,3 @@ actgr2 = types.KeyboardButton('Создать группу')
 chooseaction_markup.add(actgr1, actgr2)
 
 
-
