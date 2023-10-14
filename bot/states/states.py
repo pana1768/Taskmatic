@@ -1,4 +1,7 @@
 from telebot.handler_backends import State, StatesGroup
 
-class TemplateState(StatesGroup):
-    first = State()
+class MyGroups(StatesGroup):
+    chooserole = State()
+    manager = State()
+    executor = State()
+    
