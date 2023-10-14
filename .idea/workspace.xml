@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="db">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot/bot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/db.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/model.py" afterDir="false" />
     </list>
@@ -61,6 +62,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="db" />
-    <option name="LAST_COMMIT_MESSAGE" value="db" />
+    <MESSAGE value="check_user" />
+    <option name="LAST_COMMIT_MESSAGE" value="check_user" />
   </component>
 </project>
