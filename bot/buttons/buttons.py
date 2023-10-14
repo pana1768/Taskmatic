@@ -14,7 +14,8 @@ chooserole_markup.add(rukovoditel_2, uchastnik_2, zhopa_2)
 chooseaction_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопки "Группы"
 actgr1 = types.KeyboardButton('Мои группы')
 actgr2 = types.KeyboardButton('Создать группу')
-chooseaction_markup.add(actgr1, actgr2)
+zhopa_2 = types.KeyboardButton('Назад')
+chooseaction_markup.add(actgr1, actgr2,zhopa_2)
 
 zadacha_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо посое вывода задачи, составленной руководителем
 okzad = types.KeyboardButton('Сохранить')
