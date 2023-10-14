@@ -5,6 +5,7 @@ class Groups(StatesGroup):
     choosertype = State()
     manager = State()
     executor = State()
+    chooserole = State()
     
 class Tasks(StatesGroup):
     chooserole = State()
@@ -16,3 +17,4 @@ class RandomStates(StatesGroup):
     chooseaction = State()
     register = State()
     start_work = State()
+    wait_invite_link = State()

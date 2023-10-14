@@ -1,0 +1,73 @@
+Index: bot/buttons/buttons.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import telebot\r\nfrom telebot import types\r\nchoosepoint_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)\r\nsozdatgr_1 = types.KeyboardButton('Группы')\r\nmygroups_1 = types.KeyboardButton('Задания')\r\nchooseactioon_markup.add(sozdatgr_1, mygroups_1)\r\n\r\nchooserole_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопок \"Мои группы\", \"Создать группу\", \"Задания\"\r\nrukovoditel_2 = types.KeyboardButton('Я руководитель')\r\nuchastnik_2 = types.KeyboardButton('Я участник')\r\nzhopa_2 = types.KeyboardButton('Назад')\r\nchooserole_markup.add(rukovoditel_2, uchastnik_2, zhopa_2)\r\n\r\nchooseaction_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопки \"Группы\"\r\nactgr1 = types.KeyboardButton('Мои группы')\r\nactgr2 = types.KeyboardButton('Создать группу')\r\nchooseaction_markup.add(actgr1, actgr2)\r\n\r\nchooserole_markup.add(rukovoditel_2, rabotnik_2)\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bot/buttons/buttons.py b/bot/buttons/buttons.py
+--- a/bot/buttons/buttons.py	(revision 301391b14500ec10f452f236dec171e49c347d41)
++++ b/bot/buttons/buttons.py	(date 1697286553511)
+@@ -3,7 +3,7 @@
+ choosepoint_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+ sozdatgr_1 = types.KeyboardButton('Группы')
+ mygroups_1 = types.KeyboardButton('Задания')
+-chooseactioon_markup.add(sozdatgr_1, mygroups_1)
++choosepoint_markup.add(sozdatgr_1, mygroups_1)
+ 
+ chooserole_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопок "Мои группы", "Создать группу", "Задания"
+ rukovoditel_2 = types.KeyboardButton('Я руководитель')
+@@ -16,6 +16,6 @@
+ actgr2 = types.KeyboardButton('Создать группу')
+ chooseaction_markup.add(actgr1, actgr2)
+ 
+-chooserole_markup.add(rukovoditel_2, rabotnik_2)
++
+ 
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"fd06a832-742d-44fb-b79a-24ef704fce59\" name=\"Changes\" comment=\"'Добавила кнопки'\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2WkCJm0c7n8Wu5SAlyL7o1C3OSP\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"main\",\r\n    \"last_opened_file_path\": \"C:/Users/sonas/hakaton/Taskmatic\",\r\n    \"settings.editor.selected.configurable\": \"com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"fd06a832-742d-44fb-b79a-24ef704fce59\" name=\"Changes\" comment=\"\" />\r\n      <created>1697267121143</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1697267121143</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"'Добавила кнопки'\">\r\n      <created>1697274284878</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1697274284879</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"'Добавила кнопки'\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"'Добавила кнопки'\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 301391b14500ec10f452f236dec171e49c347d41)
++++ b/.idea/workspace.xml	(date 1697286554153)
+@@ -4,7 +4,10 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="'Добавила кнопки'" />
++    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="добавила кнопки, поправила описание">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/bot/buttons/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot/buttons/buttons.py" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -28,15 +31,15 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "git-widget-placeholder": "main",
+-    "last_opened_file_path": "C:/Users/sonas/hakaton/Taskmatic",
+-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/sonas/hakaton/Taskmatic&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
