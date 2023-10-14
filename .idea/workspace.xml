@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="registation_final">
+    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="добавила ещё кучу миллионов кнопок">
+      <change beforePath="$PROJECT_DIR$/.idea/Taskmatic.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Taskmatic.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/db.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +67,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697291771507</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="добавила ещё кучу миллионов кнопок">
+      <created>1697297484647</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1697297484648</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -84,6 +92,7 @@
     <MESSAGE value="db" />
     <MESSAGE value="check_user" />
     <MESSAGE value="registation_final" />
-    <option name="LAST_COMMIT_MESSAGE" value="registation_final" />
+    <MESSAGE value="добавила ещё кучу миллионов кнопок" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавила ещё кучу миллионов кнопок" />
   </component>
 </project>
