@@ -73,7 +73,7 @@ def main():
     def get_group_info(call):
         group_id = call.data.split('_')[1]
         text_group = db.info_groups(group_id)
-        bot.send_message(call.chat.id,text_group)
+        bot.send_message(call.message.chat.id,text_group)
         
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
