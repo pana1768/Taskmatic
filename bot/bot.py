@@ -19,40 +19,20 @@ def main():
                          "Пожалуйста,введите свое имя для продолжения работы")
         else:
             bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
-            bot.send_message(message.chat.id,'Этот бот поможет вам удобно управлять задачами и быстро\n распределять их среди участников группы. Создайте группу, добавьте участников и побликуйте задачи, \n которые участники смогут выбрать и решить самостоятельно! Устанавливайте крайние даты решения,\n добавьте описание задач и работайте с другими функциями Taskmatic!',
-                             reply_markup=buttons.choosepoint_markup)
+        
     @bot.message_handler(state=states.RandomStates.register)
     def register(message):
-        a = "@"+message.from_user.username
-        print(a)
-        db.register_user(message.chat.id,message.text,a)
+        db.register_user(message.chat.id,message.text)
         bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
-        bot.send_message(message.chat.id,'Этот бот поможет вам удобно управлять задачами и быстро\n распределять их среди участников группы. Создайте группу, добавьте участников и побликуйте задачи, \n которые участники смогут выбрать и решить самостоятельно! Устанавливайте крайние даты решения,\n добавьте описание задач и работайте с другими функциями Taskmatic!',
-                             reply_markup=buttons.choosepoint_markup)
         
 
-    @bot.message_handler(state=states.RandomStates.start_work)
-    def start_work(message):
-        if message.text == 'Группы':
-            bot.set_state(message.from_user.id, states.Groups.choosertype, message.chat.id)
-            bot.send_message(message.chat.id, "Выберите действие:",reply_markup=buttons.chooseaction_markup)
-        else:
-            pass
-    @bot.message_handler(state=states.Groups.choosertype)
-    def choosetype(message):
-        if message.text == "Создать группу":
-            bot.set_state(message.from_user.id, states.CreateGroup.entername)
-            bot.send_message(message.chat.id, "Введите название группы:")
-        else:
-            pass
-    @bot.message_handler(state=states.CreateGroup.entername)
-    def entername(message):
-        if not db.check_doubled_name(message.chat.id,message.text):
-            bot.send_message(message.chat.id,'У вас уже есть группа с таким названием, пожалуйста, придумайте новое')
-        else:
-            db.create_group(message.text,message.chat.id)
-            bot.send_message(message.chat.id, "Выберите действие")
+    @bot.message_handler(state=states.RandomStates.chooseaction)
+    def choseact(message):
+        bot.send_message(message.chat.id,'kfivnoinismcf')
+        
+    
     bot.add_custom_filter(custom_filters.StateFilter(bot))
     bot.infinity_polling()
 if __name__ == "__main__":
     main()
+

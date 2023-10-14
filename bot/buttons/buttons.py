@@ -8,7 +8,7 @@ choosepoint_markup.add(sozdatgr_1, mygroups_1)
 chooserole_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопок "Мои группы", "Создать группу", "Задания"
 rukovoditel_2 = types.KeyboardButton('Я руководитель')
 uchastnik_2 = types.KeyboardButton('Я участник')
-nazad_2 = types.KeyboardButton('Назад')
+zhopa_2 = types.KeyboardButton('Назад')
 chooserole_markup.add(rukovoditel_2, uchastnik_2, zhopa_2)
 
 chooseaction_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопки "Группы"
@@ -21,7 +21,7 @@ okzad = types.KeyboardButton('Сохранить')
 changezad = types.KeyboardButton('Изменить')
 zadacha_markup.add(okzad, changezad)
 
-changing_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопки "изменить"
+changing_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопки "изменить" для задачи
 changename = types.KeyboardButton('Название')
 changedis = types.KeyboardButton('Описание')
 changedd = types.KeyboardButton('Дедлайн')
@@ -48,5 +48,13 @@ free = types.KeyboardButton('Свободные')
 active = types.KeyboardButton('В процессе')
 zadruk_markup.add(create, free, active)
 
+zadrab_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это после кнопки "Я участник" в разделе "Задания"
+free1 = types.KeyboardButton('Свободные')
+active1 = types.KeyboardButton('В процессе')
+zadrab_markup.add(free1, active1)
 
+changegr_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это изменение группы
+dp = types.KeyboardButton('Удалить участника')
+zhopa = types.KeyboardButton('Назад')
+changegr_markup.add(dp, zhopa)
 
