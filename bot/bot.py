@@ -170,7 +170,7 @@ def main():
             bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
     
     
-    @bot.message_handler(commands=['jointogroup'])
+    @bot.message_handler(state='*',commands=['jointogroup'])
     def join(message):
         bot.send_message(message.chat.id, "Введите идентификатор группы")
         bot.register_next_step_handler(message,join_to_group)
