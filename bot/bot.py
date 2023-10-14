@@ -60,7 +60,7 @@ def main():
             bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
         #доделать
 
-    @bot.message_handler(state=states.Groups.chooserole)
+    @bot.message_handler(state=states.Groups.chooseactionadmin)
     def chooseactionadmin(message):
         if message.text == "Просмотр":
             grouplist = db.get_admin_groups(message.chat.id)
