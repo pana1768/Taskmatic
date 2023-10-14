@@ -62,7 +62,11 @@ def main():
             #добавить просмотр/редактировать
             bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
         elif message.text == 'Я участник':
-            pass
+            list_of_groups = db.get_executor_group(message.chat.id)
+            inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
+            bot.send_message(message.chat.id,'Выберите группу', reply_markup=inline_groups_markup)
+            
+            
         else:
             bot.set_state(message.from_user.id, states.Groups.choosertype)
             bot.send_message(message.chat.id, "Выберите действие:",reply_markup=buttons.chooseaction_markup)
@@ -145,7 +149,18 @@ def main():
     
     
     
-    
+    @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'executor')
+    def chose_group_executor(call):
+        group_id = call.data.split('_')[1]
+        with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
+            data['group_id'] = group_id
+        bot.set_state(call.from_user.id, states.RandomStates.chose_leave)
+        bot.send_message(call.message.chat.id,"Выберите действие",reply_markup=buttons.uchastchange_markup)
+        
+    @bot.message_handler(state= states.RandomStates.chose_leave)
+    def chose_executor_reaction(message):
+        if message.text == 'Выйти из группы':
+            db.
     
     
     

@@ -93,5 +93,11 @@ def inline_get_list_edit(list_groups:list)->types.InlineKeyboardMarkup():
         adminlistgroups.add(but)
     return adminlistgroups
 
+def inline_get_list_executor(list_groups:list)->types.InlineKeyboardMarkup():
+    list_of_groups = types.InlineKeyboardMarkup()
+    for group in list_groups:
+        but = types.InlineKeyboardButton(text = group['Group name'], callback_data='executor_'+str(group['Group id']))
+        list_of_groups.add(but)
+    return list_of_groups
 backup_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 backup_markup.add(zhopa)

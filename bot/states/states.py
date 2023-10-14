@@ -24,3 +24,4 @@ class RandomStates(StatesGroup):
     register = State()
     start_work = State()
     wait_invite_link = State()
+    chose_leave = State()
