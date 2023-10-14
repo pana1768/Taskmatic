@@ -42,6 +42,7 @@ def main():
             bot.send_message(message.chat.id, "Выберите действие:",reply_markup=buttons.chooseaction_markup)
         else:
             pass
+        #таски
     @bot.message_handler(state=states.Groups.choosertype)
     def choosetype(message):
         if message.text == "Создать группу":
@@ -49,24 +50,32 @@ def main():
             bot.send_message(message.chat.id, "Введите название группы:")
         elif message.text == 'Мои группы':
             bot.set_state(message.from_user.id, states.Groups.chooserole)
-            bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooseaction_markup)
+            bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
             
-    # @bot.message_handler(state=states.CreateGroup.entername)
-    # def choserole(message):
-    #     pass       
-    #     #доделать
+    @bot.message_handler(state=states.Groups.chooserole)
+    def choserole(message):
+        if message.text == 'Я руководитель':
+            bot.set_state(message.from_user.id, states.Groups.chooseactionadmin)
+            #добавить просмотр/редактировать
+            bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
+        #доделать
+
+    @bot.message_handler(state=states.Groups.chooseactionadmin)
+    def chooseactionadmin(message):
+        if message.text == "Просмотр":
+            grouplist = db.get_admin_groups(message.chat.id)
+            keylist_markup = buttons.inline_get_list(grouplist)
+            bot.send_message(message.chat.id,"Ваши группы",reply_markup=keylist_markup)
 
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
         if not db.check_doubled_name(message.chat.id,message.text):
             bot.send_message(message.chat.id,'У вас уже есть группа с таким названием, пожалуйста, придумайте новое')
-            print('')
         else:
             db.create_group(message.text,message.chat.id)
             invite_id = "Твой идентификатор группы: " + message.text +"_"+ str(db.get_id_group(message.chat.id,message.text))
             bot.send_message(message.chat.id,invite_id,reply_markup=buttons.choosepoint_markup)
             bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
-            #Проверить!!!
     
     
 
