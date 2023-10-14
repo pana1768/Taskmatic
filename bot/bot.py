@@ -7,7 +7,7 @@ import db.db as db
 import logging
 logging.basicConfig(level=logging.WARNING, filename="py_log.log",filemode="w",
                     format="%(asctime)s %(levelname)s %(message)s")
-
+msg_id = None
 state_storage = StateMemoryStorage()
 bot = telebot.TeleBot('6652605107:AAFLxE_GAkvr-HC4AKW3h_WotvYYiOBrSdk',state_storage=state_storage)
 
@@ -71,9 +71,15 @@ def main():
         
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'admin')
     def get_group_info(call):
+        global msg_id
         group_id = call.data.split('_')[1]
         text_group = db.info_groups(group_id)
+        try:
+            bot.delete_message(call.message.chat.id,msg_id)
+        except:
+            pass
         bot.send_message(call.message.chat.id,text_group,parse_mode='HTML')
+        msg_id = call.message.message_id
         
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
