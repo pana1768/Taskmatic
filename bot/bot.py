@@ -12,6 +12,7 @@ bot = telebot.TeleBot('6652605107:AAFLxE_GAkvr-HC4AKW3h_WotvYYiOBrSdk',state_sto
 def main():
     @bot.message_handler(commands=['start'])
     def register(message):
+<<<<<<< HEAD
         if db.check_user(message.chat.id):
             bot.set_state(message.from_user.id, states.RandomStates.register, message.chat.id)
             bot.send_message(message.chat.id,"Добро пожаловать в Taskmatic!\n"
@@ -19,6 +20,13 @@ def main():
                          "Пожалуйста,введите свое имя для продолжения работы")
         else:
             bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
+=======
+        bot.set_state(message.from_user.id, states.RandomStates.chooseaction, message.chat.id)
+        bot.send_message(message.chat.id, "Добро пожаловать в Taskmatic!\n"
+                         "Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников группы. Создайте группу, добавьте участников и побликуйте задачи, которые участники смогут выбрать и решить самостоятельно! Устанавливайте крайние даты решения, добавьте описание задач и работайте с другими функциями Taskmatic!\n"
+                                          "Выберите раздел",
+                         reply_markup= buttons.chooseactioon_markup)
+>>>>>>> origin/main
         
         
     @bot.message_handler(state=states.RandomStates.register)
