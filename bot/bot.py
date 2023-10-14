@@ -63,8 +63,8 @@ def main():
             print('')
         else:
             db.create_group(message.text,message.chat.id)
-            invite_id = message.text +"_"+ str(db.get_id_group(message.chat.id,message.text))
-            bot.send_message(message.chat.id,invite_id,buttons.choosepoint_markup,parse_mode='Markdown')
+            invite_id = "Твой идентификатор группы: " + message.text +"_"+ str(db.get_id_group(message.chat.id,message.text))
+            bot.send_message(message.chat.id,invite_id,buttons.choosepoint_markup)
             bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
             #Проверить!!!
     
