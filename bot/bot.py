@@ -19,6 +19,7 @@ def main():
         bot.register_next_step_handler(message,join_to_group)
     def join_to_group(message):
         db.join_group(message.text, message.chat.id)
+        bot.send_message(message.chat.id, "Вы успешно добавились в группу")
     
     
     
@@ -28,8 +29,8 @@ def main():
         if db.check_user(message.chat.id):
             bot.set_state(message.from_user.id, states.RandomStates.register, message.chat.id)
             bot.send_message(message.chat.id,"Добро пожаловать в Taskmatic!\n"
-                         "Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников групп\n"
-                         "Пожалуйста,введите свое имя для продолжения работы")
+                         "Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников групп.\n"
+                         "Пожалуйста, введите свое имя для продолжения работы")
         else:
             bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
             bot.send_message(message.chat.id,"Этот бот поможет вам удобно управлять задачами и\n"
