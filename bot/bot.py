@@ -50,7 +50,7 @@ def main():
             bot.send_message(message.chat.id, "Введите название группы:")
         elif message.text == 'Мои группы':
             bot.set_state(message.from_user.id, states.Groups.chooserole)
-            bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooseaction_markup)
+            bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
             
     @bot.message_handler(state=states.Groups.chooserole)
     def choserole(message):
