@@ -12,6 +12,17 @@ state_storage = StateMemoryStorage()
 bot = telebot.TeleBot('6652605107:AAFLxE_GAkvr-HC4AKW3h_WotvYYiOBrSdk',state_storage=state_storage)
 
 def main():
+    
+    @bot.message_handler(state='*',commands=['jointogroup'])
+    def join(message):
+        bot.send_message(message.chat.id, "Введите идентификатор группы")
+        bot.register_next_step_handler(message,join_to_group)
+    def join_to_group(message):
+        db.join_group(message.text, message.chat.id)
+    
+    
+    
+    
     @bot.message_handler(commands=['start'])
     def check_register(message):
         if db.check_user(message.chat.id):
@@ -170,12 +181,7 @@ def main():
             bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
     
     
-    @bot.message_handler(state='*',commands=['jointogroup'])
-    def join(message):
-        bot.send_message(message.chat.id, "Введите идентификатор группы")
-        bot.register_next_step_handler(message,join_to_group)
-    def join_to_group(message):
-        db.join_group(message.text, message.chat.id)
+    
     
     
     
