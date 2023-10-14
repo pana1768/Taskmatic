@@ -36,12 +36,19 @@ def main():
         if message.text == 'Группы':
             bot.set_state(message.from_user.id, states.Groups.choosertype, message.chat.id)
             bot.send_message(message.chat.id, "Выберите действие:",reply_markup=buttons.chooseaction_markup)
-        
+        else:
+            pass
     @bot.message_handler(state=states.Groups.choosertype)
     def choosetype(message):
         if message.text == "Создать группу":
-            
-    
+            bot.set_state(message.from_user.id, states.CreateGroup.entername)
+            bot.send_message(message.chat.id, "Введите название группы:")
+        else:
+            pass
+    @bot.message_handler(state=states.CreateGroup.entername)
+    def entername(message):
+        db.create_group(message.text,message.chat.id)
+        bot.send_message(message.chat.id, "Вова гнида ебучая")
     bot.add_custom_filter(custom_filters.StateFilter(bot))
     bot.infinity_polling()
 if __name__ == "__main__":

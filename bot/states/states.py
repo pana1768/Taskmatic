@@ -9,7 +9,8 @@ class Groups(StatesGroup):
 class Tasks(StatesGroup):
     chooserole = State()
 
-
+class CreateGroup(StatesGroup):
+    entername = State()
     
 class RandomStates(StatesGroup):
     chooseaction = State()
