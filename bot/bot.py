@@ -9,7 +9,7 @@ bot = telebot.TeleBot('6652605107:AAFLxE_GAkvr-HC4AKW3h_WotvYYiOBrSdk',state_sto
 
 def main():
     @bot.message_handler(commands=['start'])
-    def start(message):
+    def register(message):
         bot.set_state(message.from_user.id, states.RandomStates.chooseaction, message.chat.id)
         bot.send_message(message.chat.id, "Добро пожаловать в Taskmatic!\n"
                          "Этот бот поможет вам удобно управлять задачами и хз придумайте описание пж. Выберите действие",
