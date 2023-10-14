@@ -65,8 +65,14 @@ def main():
         if message.text == "Просмотр":
             grouplist = db.get_admin_groups(message.chat.id)
             keylist_markup = buttons.inline_get_list(grouplist)
-            bot.send_message(message.chat.id,"Ваши группы",reply_markup=keylist_markup)
-
+            bot.send_message(message.chat.id,"Ваши группы:",reply_markup=keylist_markup)
+        else:
+            pass
+        
+    @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'admin')
+    def get_group_info(call):
+        group_id = call.data.split('_')[1]
+        
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
         if not db.check_doubled_name(message.chat.id,message.text):
