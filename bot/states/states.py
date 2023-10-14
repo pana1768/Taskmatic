@@ -13,3 +13,5 @@ class Tasks(StatesGroup):
     
 class RandomStates(StatesGroup):
     chooseaction = State()
+    register = State()
+    start_work = State()
