@@ -63,8 +63,9 @@ def main():
     @bot.message_handler(state=states.Groups.chooserole)
     def chooseactionadmin(message):
         if message.text == "Просмотр":
-            grouplist = db.get
-            keylist = buttons.inline_get_list()
+            grouplist = db.get_admin_groups(message.chat.id)
+            keylist_markup = buttons.inline_get_list(grouplist)
+            bot.send_message(message.chat.id,"Ваши группы",reply_markup=keylist_markup)
 
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
