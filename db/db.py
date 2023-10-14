@@ -38,13 +38,17 @@ def create_group(name,admin):
     session.close()
 
 
+def get_id_group(admin_id, group_name):
+    session = make_session()
+    for c in session.query(AllGroup).filter(AllGroup.admin_id == admin_id).all():
+        if c.group_name == group_name:
+            return c.grop_id
 def check_doubled_name(admin_id, group_name):
     session = make_session()
     for c in session.query(AllGroup).filter(AllGroup.admin_id == admin_id).all():
         if c.group_name == group_name:
             return False
     return True
-
 def check_user(user_id):
     session = make_session()
     if session.query(Users).filter(Users.user_id == user_id).all() == []:
@@ -55,5 +59,5 @@ def check_user(user_id):
         return False
 
 
-def add_executor(user_id,group_id):
+def add_executor(username,group_id):
     pass
