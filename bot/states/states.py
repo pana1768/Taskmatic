@@ -2,7 +2,7 @@ from telebot.handler_backends import State, StatesGroup
 
 
 class Groups(StatesGroup):
-    chooserole = State()
+    choosertype = State()
     manager = State()
     executor = State()
     
