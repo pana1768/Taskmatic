@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="добавила ещё кучу миллионов кнопок" />
+    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="get_admin">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/db.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +22,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2WkCJm0c7n8Wu5SAlyL7o1C3OSP" />
   <component name="ProjectViewState">
@@ -70,7 +76,21 @@
       <option name="project" value="LOCAL" />
       <updated>1697297484648</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="get_group_id">
+      <created>1697302346481</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1697302346481</updated>
+    </task>
+    <task id="LOCAL-00006" summary="get_admin">
+      <created>1697311864484</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1697311864484</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -89,6 +109,8 @@
     <MESSAGE value="check_user" />
     <MESSAGE value="registation_final" />
     <MESSAGE value="добавила ещё кучу миллионов кнопок" />
-    <option name="LAST_COMMIT_MESSAGE" value="добавила ещё кучу миллионов кнопок" />
+    <MESSAGE value="get_group_id" />
+    <MESSAGE value="get_admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="get_admin" />
   </component>
 </project>

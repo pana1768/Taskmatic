@@ -1,9 +1,21 @@
 import sqlalchemy as sq
 from sqlalchemy.orm import sessionmaker
-from db.model import create_tables, Users, Tasks, GroupExecutor, AllGroup
+from model import create_tables, Users, Tasks, GroupExecutor, AllGroup
 DSN = 'postgresql://postgres:pana@localhost:5432/database'
 engine = sq.create_engine(DSN)
 create_tables(engine)
+
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
 def make_session():
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -89,7 +101,10 @@ def get_admin_groups(user_id):
     arr = []
     for c in session.query(AllGroup).filter(AllGroup.admin_id == user_id).all():
         arr.append({'Group name' : c.group_name, 'Group id' : c.group_id})
-    return arr
+    if arr == []:
+        return 'You haven`t group'
+    else:
+        return arr
 
 
 
@@ -110,10 +125,19 @@ def delete_member(username,group_id):
     session.commit()
     session.close()
 
-def info_groups():
-    pass
+def info_groups(group_id):
+    session = make_session()
+    count_members = 0
+    count_tasks = 0
+    group_name = ''
+    for c in session.query(AllGroup).filter(AllGroup.group_id == group_id).all():
+        group_name = c.group_name
+    for c in session.query(GroupExecutor).filter(GroupExecutor.group_id == group_id).all():
+        count_members += 1
+    result = color.BOLD + group_name + color.END + '\n' + '    ' + 'Количество участинков: ' + str(count_members) + '\n' + '    ' + 'Количество заданий: ' + str(count_tasks)
+    return result
 
-
+print(info_groups(8))
 def get_executor_group():
     pass
 
