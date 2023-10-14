@@ -59,12 +59,16 @@ class AllGroup(Base):
 class GroupExecutor(Base):
     __tablename__ = 'group_executor'
 
+    admin_id = sq.Column(sq.Integer)
     user_id = sq.Column(sq.Integer,primary_key=True)
     group_id = sq.Column(sq.Integer)
+    group_name = sq.Column(sq.String)
 
-    def __init__(self,user_id,group_id):
+    def __init__(self,user_id,group_id,group_name, admin_id):
         self.user_id = user_id
         self.group_id = group_id
+        self.group_name = group_name
+        self.admin_id = admin_id
 
     # user = relationship(Users, backref='groupcutor')
 def create_tables(engine):
