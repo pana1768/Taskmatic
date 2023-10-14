@@ -54,7 +54,7 @@ def main():
             
     @bot.message_handler(state=states.Groups.chooserole)
     def choserole(message):
-        if message.text == 'Я руководитель' or message.text == 'Назад':
+        if message.text == 'Я руководитель':
             bot.set_state(message.from_user.id, states.Groups.chooseactionadmin)
             #добавить просмотр/редактировать
             bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
@@ -66,15 +66,14 @@ def main():
             grouplist = db.get_admin_groups(message.chat.id)
             keylist_markup = buttons.inline_get_list(grouplist)
             bot.send_message(message.chat.id,"Ваши группы:",reply_markup=keylist_markup)
-        else:
-            pass
+        elif message.text == 'Назад':
+            bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
         
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'admin')
     def get_group_info(call):
         group_id = call.data.split('_')[1]
         text_group = db.info_groups(group_id)
         bot.send_message(call.message.chat.id,text_group,parse_mode='HTML',reply_markup=buttons.backup_markup)
-        bot.set_state(call.message.from_user.id, states.Groups.chooserole,call.message.chat.id)
         
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
