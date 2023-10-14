@@ -137,6 +137,25 @@ def main():
 
     
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     bot.add_custom_filter(custom_filters.StateFilter(bot))
     bot.infinity_polling()
 if __name__ == "__main__":
