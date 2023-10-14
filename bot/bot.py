@@ -67,7 +67,8 @@ def main():
             keylist_markup = buttons.inline_get_list(grouplist)
             bot.send_message(message.chat.id,"Ваши группы:",reply_markup=keylist_markup)
         elif message.text == 'Назад':
-            bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
+            bot.set_state(message.from_user.id, states.Groups.chooserole)
+            bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
         else:
             grouplist = db.get_admin_groups(message.chat.id)
             keylist_markup = buttons.inline_get_list_edit(grouplist)
