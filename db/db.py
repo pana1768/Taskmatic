@@ -144,8 +144,12 @@ def get_executor_group(user_id):
     else:
         return arr
 
-
-
+def leave_group(group_id,user_id):
+    session = make_session()
+    delete = session.query(GroupExecutor).filter(GroupExecutor.group_id == group_id).filter(GroupExecutor.user_id == user_id).delete()
+    session.commit()
+    session.close()
+    return delete
 
 
 
