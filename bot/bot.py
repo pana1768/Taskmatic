@@ -47,7 +47,7 @@ def main():
             pass
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
-        if not db.check_doubled_name:
+        if not db.check_doubled_name(message.chat.id,message.text):
             bot.send_message(message.chat.id,'У вас уже есть группа с таким названием, пожалуйста, придумайте новое')
         else:
             db.create_group(message.text,message.chat.id)
