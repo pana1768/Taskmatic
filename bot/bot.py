@@ -72,6 +72,8 @@ def main():
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'admin')
     def get_group_info(call):
         group_id = call.data.split('_')[1]
+        text_group = db.info_groups(group_id)
+        bot.send_message(call.chat.id,text_group)
         
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
