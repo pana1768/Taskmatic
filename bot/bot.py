@@ -86,7 +86,7 @@ def main():
             data['group_id'] = group_id
         bot.send_message(call.message.chat.id,"Выберите действие",parse_mode='HTML',reply_markup=buttons.changegr_markup)
         
-    @bot.message_handler(state=states.Groups.editgroup)
+    @bot.message_handler(state=states.Groups.edit)
     def editGroup(message):
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
             group_id = data['group_id']
