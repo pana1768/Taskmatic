@@ -76,8 +76,6 @@ def main():
             invite_id = "Твой идентификатор группы: " + message.text +"_"+ str(db.get_id_group(message.chat.id,message.text))
             bot.send_message(message.chat.id,invite_id,reply_markup=buttons.choosepoint_markup)
             bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
-    
-    
 
     bot.add_custom_filter(custom_filters.StateFilter(bot))
     bot.infinity_polling()
