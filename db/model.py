@@ -31,6 +31,7 @@ class Tasks(Base):
     name_task = sq.Column(sq.String(length=40))
     description_task = sq.Column(sq.String(length=1000))
     user_take = sq.Column(sq.Integer)
+    # data = sq.Column(sq.bytea)
 
     def __init__(self,task_id,name_task,description_task, user_take):
         self.task_id = task_id
