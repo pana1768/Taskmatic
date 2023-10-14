@@ -48,11 +48,15 @@ class AllGroup(Base):
     group_id = sq.Column(sq.Integer,primary_key=True)
     group_name = sq.Column(sq.String)
     admin_id = sq.Column(sq.Integer)
+    invite_id = sq.Column(sq.String)
     # user_id = sq.Column(sq.Integer, )
 
     def __init__(self, group_name, admin_id):
         self.group_name = group_name
         self.admin_id = admin_id
+
+    def __str__(self):
+        return f'{self.group_id} : {self.group_name} : {self.admin_id} : {self.invite_id}'
 
     # users = relationship(Users, backref=)
 

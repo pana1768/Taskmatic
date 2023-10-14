@@ -1,6 +1,6 @@
 import sqlalchemy as sq
 from sqlalchemy.orm import sessionmaker
-from db.model import create_tables, Users, Tasks, GroupExecutor, AllGroup
+from model import create_tables, Users, Tasks, GroupExecutor, AllGroup
 DSN = 'postgresql://postgres:pana@localhost:5432/database'
 engine = sq.create_engine(DSN)
 create_tables(engine)
@@ -37,17 +37,20 @@ def create_group(name,admin):
     session.commit()
     session.close()
 
-
+# create_group(name='newgroup',admin=222)
 def get_id_group(admin_id, group_name):
     session = make_session()
     for c in session.query(AllGroup).filter(AllGroup.admin_id == admin_id).all():
         if c.group_name == group_name:
+            session.close()
             return c.grop_id
 def check_doubled_name(admin_id, group_name):
     session = make_session()
     for c in session.query(AllGroup).filter(AllGroup.admin_id == admin_id).all():
         if c.group_name == group_name:
+            session.close()
             return False
+    session.close()
     return True
 def check_user(user_id):
     session = make_session()
@@ -57,6 +60,16 @@ def check_user(user_id):
     else:
         session.close()
         return False
-def join_group(group):
-    group_name, grop_id = group.split('_')
+def join_group(invite_id, user_id):
+    group_name, group_id = invite_id.split('_')
+    session = make_session()
+    ses = 0
+    for c in session.query(AllGroup).filter(AllGroup.group_id == int(group_id)).all():
+        ses = c.admin_id
+    new_worker = GroupExecutor(user_id=user_id,group_id=group_id,group_name=group_name,admin_id=ses)
+    session.add(new_worker)
+    session.commit()
+    session.close()
+
+
 
