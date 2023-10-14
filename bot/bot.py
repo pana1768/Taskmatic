@@ -159,11 +159,23 @@ def main():
         
     @bot.message_handler(state= states.RandomStates.chose_leave)
     def chose_executor_reaction(message):
+        with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+            group_id = data['group_id']
         if message.text == 'Выйти из группы':
-            db.
+            db.leave_group(group_id,message.id)
+            bot.set_state(message.from_user.id, states.Groups.chooserole)
+            bot.send_message(message.chat.id, "Вы успешно вышли из группы",reply_markup=buttons.chooserole_markup)
+        else:
+            bot.set_state(message.from_user.id, states.Groups.chooserole)
+            bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
     
     
-    
+    @bot.message_handler(commands=['jointogroup'])
+    def join(message):
+        bot.send_message(message.chat.id, "Введите идентификатор группы")
+        bot.register_next_step_handler(message,join_to_group)
+    def join_to_group(message):
+        db.join_group(message.text, message.chat.id)
     
     
     
