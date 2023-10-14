@@ -81,6 +81,7 @@ def main():
         bot.set_state(call.from_user.id, states.Groups.edit)
         bot.send_message(call.message.chat.id,"Выберите действие",parse_mode='HTML',reply_markup=buttons.changegr_markup)
         
+    
     @bot.message_handler(state=states.Groups.edit)
     def editGroup(message):
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
@@ -88,12 +89,24 @@ def main():
         if message.text == 'Удалить группу':
             db.delete_group(group_id)
             bot.send_message(message.chat.id, "Вы удалили группу")
+        if message.text == 'Удалить участника':
+            bot.send_message(message.chat.id,'Введите никнейм участника в формате @username')
+            bot.set_state(message.from_user.id, states.Groups.wait_username)
+            
+    @bot.message_handler(state=states.Groups.wait_username)
+    def user_delete(message):
+        with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+            group_id = data['group_id']
+        rez = db.delete_member(message.text,group_id)
+        print(rez)
         
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'admin')
     def get_group_info(call):
         group_id = call.data.split('_')[1]
         text_group = db.info_groups(group_id)
         bot.send_message(call.message.chat.id,text_group,parse_mode='HTML',reply_markup=buttons.backup_markup)
+        
+        
         
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):

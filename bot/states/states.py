@@ -11,6 +11,7 @@ class Groups(StatesGroup):
     chooseactionadmin = State()
     editgroup = State()
     edit = State()
+    wait_username = State()
     
 class Tasks(StatesGroup):
     chooserole = State()
