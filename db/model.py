@@ -5,7 +5,7 @@ from sqlalchemy.orm import declarative_base, relationship
 # meta_obj = MetaData()
 Base = declarative_base()
 
-class Users (Base):
+class Users(Base):
     __tablename__ = 'registered_users'
 
     user_id = sq.Column(sq.Integer, primary_key=True)
@@ -22,7 +22,7 @@ class Tasks(Base):
     description_task = sq.Column(sq.String(length=1000))
     user_take = sq.Column(sq.Integer)
 
-    user = relationship(Users, backref='task')
+    # user = relationship(Users, backref='task')
     def __str__(self):
         return f'{self.task_id} : {self.name_task} : {self.description_task}'
 
@@ -36,11 +36,11 @@ class AllGroup(Base):
 class GroupExecutor(Base):
     __tablename__ = 'group_executor'
 
-    user_id = sq.Column(sq.Integer)
+    user_id = sq.Column(sq.Integer,primary_key=True)
     group_id = sq.Column(sq.Integer)
     group_name = sq.Column(sq.String)
 
-    user = relationship(Users, backref='groupcutor')
+    # user = relationship(Users, backref='groupcutor')
 def create_tables(engine):
     Base.metadata.create_all(engine)
 

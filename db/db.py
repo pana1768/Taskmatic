@@ -36,7 +36,19 @@ def create_group(name,admin):
     session.commit()
     session.close()
 
+def check_user(user_id):
+    session = make_session()
+    if session.query(Users).filter(Users.name == user_id).all() == []:
+        session.close()
+        return True
+    else:
+        session.close()
+        return False
+
+
 def add_executor(user_id,group_id):
     pass
+
+
 
 
