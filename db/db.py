@@ -137,7 +137,6 @@ def info_groups(group_id):
     result = color.BOLD + group_name + color.END + '\n' + '    ' + 'Количество участинков: ' + str(count_members) + '\n' + '    ' + 'Количество заданий: ' + str(count_tasks)
     return result
 
-print(info_groups(8))
 def get_executor_group():
     pass
 
