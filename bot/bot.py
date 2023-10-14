@@ -74,8 +74,11 @@ def main():
             bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
         elif message.text == 'Я участник':
             list_of_groups = db.get_executor_group(message.chat.id)
-            inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
-            bot.send_message(message.chat.id,'Выберите группу', reply_markup=inline_groups_markup)
+            if len(list_of_groups) != 0:
+                bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
+            else:
+                inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
+                bot.send_message(message.chat.id,'Выберите группу', reply_markup=inline_groups_markup)
             
             
         else:
