@@ -46,12 +46,11 @@ class AllGroup(Base):
     __tablename__ = 'all_group'
 
     group_id = sq.Column(sq.Integer,primary_key=True)
-    group_name = sq.Column(sq.String, unique=True)
-    admin_id = sq.Column(sq.Integer, unique=True)
+    group_name = sq.Column(sq.String)
+    admin_id = sq.Column(sq.Integer)
     # user_id = sq.Column(sq.Integer, )
 
-    def __init__(self, group_id, group_name, admin_id):
-        self.group_id = group_id
+    def __init__(self, group_name, admin_id):
         self.group_name = group_name
         self.admin_id = admin_id
 
