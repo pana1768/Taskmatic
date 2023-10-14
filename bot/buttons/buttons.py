@@ -78,7 +78,7 @@ def inline_get_list(list_groups:list)->types.InlineKeyboardMarkup():
     for group in list_groups:
         group['role'] = 'admin'
     
-    adminlistgroups = types.InlineKeyboardButton()
+    adminlistgroups = types.InlineKeyboardMarkup()
     for group in list_groups:
         but = types.InlineKeyboardButton(text = group['Group name'], callback_data=group)
         adminlistgroups.add(but)
