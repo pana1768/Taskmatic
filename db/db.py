@@ -23,6 +23,7 @@ def add_task(task_name, task_description):
     session.commit()
     session.close()
 
+
 def user_take_task(task_id, user_id):
     session = make_session()
     take_task = session.query(Tasks).filter(Tasks.task_id == task_id).update({'user_take': user_id})
@@ -36,6 +37,14 @@ def create_group(name,admin):
     session.commit()
     session.close()
 
+
+def check_doubled_name(admin_id, group_name):
+    session = make_session()
+    for c in session.query(AllGroup).filter(AllGroup.admin_id == admin_id).all():
+        if c.group_name == group_name:
+            return False
+    return True
+
 def check_user(user_id):
     session = make_session()
     if session.query(Users).filter(Users.user_id == user_id).all() == []:
@@ -48,7 +57,3 @@ def check_user(user_id):
 
 def add_executor(user_id,group_id):
     pass
-
-
-
-
