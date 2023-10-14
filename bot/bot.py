@@ -173,7 +173,7 @@ def main():
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
             group_id = data['group_id']
         if message.text == 'Выйти из группы':
-            db.leave_group(group_id,message.id)
+            db.leave_group(group_id,message.chat.id)
             bot.set_state(message.from_user.id, states.Groups.chooserole)
             bot.send_message(message.chat.id, "Вы успешно вышли из группы",reply_markup=buttons.chooserole_markup)
         else:
