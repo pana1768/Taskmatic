@@ -51,6 +51,9 @@ def main():
         elif message.text == 'Мои группы':
             bot.set_state(message.from_user.id, states.Groups.chooserole)
             bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
+        else:
+            bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
+            bot.send_message(message.chat.id, "Выберите действие:",reply_markup=buttons.choosepoint_markup)
             
     @bot.message_handler(state=states.Groups.chooserole)
     def choserole(message):
@@ -58,6 +61,11 @@ def main():
             bot.set_state(message.from_user.id, states.Groups.chooseactionadmin)
             #добавить просмотр/редактировать
             bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
+        if message.text == 'Я участник':
+            pass
+        else:
+            bot.set_state(message.from_user.id, states.Groups.choosertype)
+            bot.send_message(message.chat.id, "Выберите действие:",reply_markup=buttons.chooseaction_markup)
         #доделать
 
     @bot.message_handler(state=states.Groups.chooseactionadmin)
