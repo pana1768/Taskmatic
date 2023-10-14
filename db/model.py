@@ -10,9 +10,12 @@ class Users(Base):
 
     user_id = sq.Column(sq.Integer, primary_key=True)
     name = sq.Column(sq.String)
+    # groups = sq.Column(sq.Integer,sq.ForeignKey())
+
 
     def __str__(self):
         return f'{self.user_id}: {self.name}'
+
 
 class Tasks(Base):
     __tablename__ = 'tasks'
@@ -32,6 +35,9 @@ class AllGroup(Base):
     group_id = sq.Column(sq.Integer,primary_key=True)
     group_name = sq.Column(sq.String, unique=True)
     admin_id = sq.Column(sq.Integer, unique=True)
+    # user_id = sq.Column(sq.Integer, )
+
+    # users = relationship(Users, backref=)
 
 class GroupExecutor(Base):
     __tablename__ = 'group_executor'
