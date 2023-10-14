@@ -73,3 +73,9 @@ areyousure_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это по
 yes1 = types.KeyboardButton('Да')
 no1 = types.KeyboardButton('Нет') #после этого возвращается к списку групп
 areyousure_markup.add(yes1, no1, zhopa)
+
+sozdrab_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+sozdrab_markup.add(okzad, changezad)
+
+chtomenyaemusebya_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+chtomenyaemusebya_markup.add(changename, changedis)
