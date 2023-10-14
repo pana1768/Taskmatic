@@ -9,6 +9,8 @@ class Groups(StatesGroup):
     edit = State()
     view = State()
     chooseactionadmin = State()
+    editgroup = State()
+    edit = State()
     
 class Tasks(StatesGroup):
     chooserole = State()

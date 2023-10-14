@@ -7,7 +7,7 @@ import db.db as db
 import logging
 logging.basicConfig(level=logging.WARNING, filename="py_log.log",filemode="w",
                     format="%(asctime)s %(levelname)s %(message)s")
-
+msg_id = None
 state_storage = StateMemoryStorage()
 bot = telebot.TeleBot('6652605107:AAFLxE_GAkvr-HC4AKW3h_WotvYYiOBrSdk',state_storage=state_storage)
 
@@ -65,8 +65,36 @@ def main():
         if message.text == "Просмотр":
             grouplist = db.get_admin_groups(message.chat.id)
             keylist_markup = buttons.inline_get_list(grouplist)
-            bot.send_message(message.chat.id,"Ваши группы",reply_markup=keylist_markup)
-
+            bot.send_message(message.chat.id,"Ваши группы:",reply_markup=keylist_markup)
+        elif message.text == 'Назад':
+            bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
+        else:
+            grouplist = db.get_admin_groups(message.chat.id)
+            keylist_markup = buttons.inline_get_list_edit(grouplist)
+            bot.send_message(message.chat.id,"Выберите группу:",reply_markup=keylist_markup)
+            
+    @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'adminedit')
+    def get_group_info(call):
+        group_id = call.data.split('_')[1]
+        with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
+            data['group_id'] = group_id
+        bot.set_state(call.from_user.id, states.Groups.edit)
+        bot.send_message(call.message.chat.id,"Выберите действие",parse_mode='HTML',reply_markup=buttons.changegr_markup)
+        
+    @bot.message_handler(state=states.Groups.edit)
+    def editGroup(message):
+        with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+            group_id = data['group_id']
+        if message.text == 'Удалить группу':
+            db.delete_group(group_id)
+            bot.send_message(message.chat.id, "Вы удалили группу")
+        
+    @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'admin')
+    def get_group_info(call):
+        group_id = call.data.split('_')[1]
+        text_group = db.info_groups(group_id)
+        bot.send_message(call.message.chat.id,text_group,parse_mode='HTML',reply_markup=buttons.backup_markup)
+        
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
         if not db.check_doubled_name(message.chat.id,message.text):

@@ -83,8 +83,20 @@ def inline_get_list(list_groups:list)->types.InlineKeyboardMarkup():
     for group in list_groups:
         group['role'] = 'admin'
     
-    adminlistgroups = types.InlineKeyboardButton()
+    adminlistgroups = types.InlineKeyboardMarkup()
     for group in list_groups:
-        but = types.InlineKeyboardButton(text = group['Group name'], callback_data=group)
+        but = types.InlineKeyboardButton(text = group['Group name'], callback_data='admin_'+str(group['Group id']))
         adminlistgroups.add(but)
     return adminlistgroups
+
+def inline_get_list_edit(list_groups:list)->types.InlineKeyboardMarkup():
+    for group in list_groups:
+        group['role'] = 'admiedit'
+    adminlistgroups = types.InlineKeyboardMarkup()
+    for group in list_groups:
+        but = types.InlineKeyboardButton(text = group['Group name'], callback_data='adminedit_'+str(group['Group id']))
+        adminlistgroups.add(but)
+    return adminlistgroups
+
+backup_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+backup_markup.add(zhopa)
