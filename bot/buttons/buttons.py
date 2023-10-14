@@ -89,7 +89,7 @@ def inline_get_list_edit(list_groups:list)->types.InlineKeyboardMarkup():
         group['role'] = 'admiedit'
     adminlistgroups = types.InlineKeyboardMarkup()
     for group in list_groups:
-        but = types.InlineKeyboardButton(text = group['Group name'], callback_data='admiedit'+str(group['Group id']))
+        but = types.InlineKeyboardButton(text = group['Group name'], callback_data='adminedit'+str(group['Group id']))
         adminlistgroups.add(but)
     return adminlistgroups
 
