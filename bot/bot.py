@@ -61,7 +61,7 @@ def main():
             bot.set_state(message.from_user.id, states.Groups.chooseactionadmin)
             #добавить просмотр/редактировать
             bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
-        if message.text == 'Я участник':
+        elif message.text == 'Я участник':
             pass
         else:
             bot.set_state(message.from_user.id, states.Groups.choosertype)
