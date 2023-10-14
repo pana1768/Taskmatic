@@ -80,6 +80,6 @@ def inline_get_list(list_groups:list)->types.InlineKeyboardMarkup():
     
     adminlistgroups = types.InlineKeyboardButton()
     for group in list_groups:
-        but = types.InlineKeyboardButton(group['Group name'], callback_data=group)
+        but = types.InlineKeyboardButton(text = group['Group name'], callback_data=group)
         adminlistgroups.add(but)
     return adminlistgroups
