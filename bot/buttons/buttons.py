@@ -73,3 +73,13 @@ areyousure_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это по
 yes1 = types.KeyboardButton('Да')
 no1 = types.KeyboardButton('Нет') #после этого возвращается к списку групп
 areyousure_markup.add(yes1, no1, zhopa)
+
+def inline_get_list(list_groups:list)->types.InlineKeyboardMarkup():
+    for group in list_groups:
+        group['role'] = 'admin'
+    
+    adminlistgroups = types.InlineKeyboardButton()
+    for group in list_groups:
+        but = types.InlineKeyboardButton(group['Group name'], callback_data=group)
+        adminlistgroups.add(but)
+    return adminlistgroups

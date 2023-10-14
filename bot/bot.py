@@ -57,8 +57,14 @@ def main():
         if message.text == 'Я руководитель':
             bot.set_state(message.from_user.id, states.Groups.chooseactionadmin)
             #добавить просмотр/редактировать
-            bot.send_message()
+            bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
         #доделать
+
+    @bot.message_handler(state=states.Groups.chooserole)
+    def chooseactionadmin(message):
+        if message.text == "Просмотр":
+            grouplist = db.get
+            keylist = buttons.inline_get_list()
 
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
