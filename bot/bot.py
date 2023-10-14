@@ -75,11 +75,10 @@ def main():
         group_id = call.data.split('_')[1]
         text_group = db.info_groups(group_id)
         try:
-            bot.delete_message(call.message.chat.id,msg_id)
+            bot.delete_message(call.message.chat.id,call.message.message_id)
         except:
             pass
         bot.send_message(call.message.chat.id,text_group,parse_mode='HTML')
-        msg_id = call.message.message_id
         
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
