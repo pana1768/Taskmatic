@@ -6,6 +6,9 @@ class Groups(StatesGroup):
     manager = State()
     executor = State()
     chooserole = State()
+    edit = State()
+    view = State()
+    chooseactionadmin = State()
     
 class Tasks(StatesGroup):
     chooserole = State()
