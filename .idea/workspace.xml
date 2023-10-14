@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="чета сделала ниче не поняла999">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/buttons/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot/buttons/buttons.py" afterDir="false" />
-    </list>
+    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="'Добавила кнопки'" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,28 +53,7 @@
       <option name="project" value="LOCAL" />
       <updated>1697274284879</updated>
     </task>
-    <task id="LOCAL-00002" summary="'Добавила кнопки'">
-      <created>1697274647655</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1697274647655</updated>
-    </task>
-    <task id="LOCAL-00003" summary="чета сделала ниче не поняла999">
-      <created>1697275323992</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1697275323993</updated>
-    </task>
-    <task id="LOCAL-00004" summary="чета сделала ниче не поняла999">
-      <created>1697283557410</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1697283557410</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -94,7 +69,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="'Добавила кнопки'" />
-    <MESSAGE value="чета сделала ниче не поняла999" />
-    <option name="LAST_COMMIT_MESSAGE" value="чета сделала ниче не поняла999" />
+    <option name="LAST_COMMIT_MESSAGE" value="'Добавила кнопки'" />
   </component>
 </project>
