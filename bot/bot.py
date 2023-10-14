@@ -47,8 +47,11 @@ def main():
             pass
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
-        db.create_group(message.text,message.chat.id)
-        bot.send_message(message.chat.id, "Вова гнида ебучая")
+        if not db.check_doubled_name:
+            bot.send_message(message.chat.id,'У вас уже есть группа с таким названием, пожалуйста, придумайте новое')
+        else:
+            db.create_group(message.text,message.chat.id)
+            bot.send_message(message.chat.id, "Выберите действие")
     bot.add_custom_filter(custom_filters.StateFilter(bot))
     bot.infinity_polling()
 if __name__ == "__main__":
