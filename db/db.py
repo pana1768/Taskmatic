@@ -57,7 +57,6 @@ def check_user(user_id):
     else:
         session.close()
         return False
+def join_group(group):
+    group_name, grop_id = group.split('_')
 
-
-def add_executor(username,group_id):
-    pass

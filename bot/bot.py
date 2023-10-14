@@ -51,7 +51,7 @@ def main():
             bot.send_message(message.chat.id,'У вас уже есть группа с таким названием, пожалуйста, придумайте новое')
         else:
             db.create_group(message.text,message.chat.id)
-            bot.send_message(message.chat.id, "Выберите действие")
+            bot.send_message(message.chat.id, "Выберите действие!")
     bot.add_custom_filter(custom_filters.StateFilter(bot))
     bot.infinity_polling()
 if __name__ == "__main__":
