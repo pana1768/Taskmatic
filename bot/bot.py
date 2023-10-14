@@ -8,7 +8,7 @@ def main():
     @bot.message_handler(commands=['start'])
     def start(message):
         bot.send_message(message.chat.id, "Добро пожаловать в Taskmatic!\n"
-                         "Этот бот поможет вам удобно управлять задачами и хз придумайте описание пж. Выберите действие",
+                         "Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников групп. Выберите действие",
                          reply_markup=None)
 
     bot.infinity_polling()
