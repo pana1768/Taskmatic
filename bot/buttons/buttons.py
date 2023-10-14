@@ -5,7 +5,7 @@ sozdatgr_1 = types.KeyboardButton('Группы')
 mygroups_1 = types.KeyboardButton('Задания')
 choosepoint_markup.add(sozdatgr_1, mygroups_1)
 
-chooserole_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопок "Мои группы", "Создать группу", "Задания"
+chooserole_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопки"Задания"
 rukovoditel_2 = types.KeyboardButton('Я руководитель')
 uchastnik_2 = types.KeyboardButton('Я участник')
 zhopa_2 = types.KeyboardButton('Назад')
