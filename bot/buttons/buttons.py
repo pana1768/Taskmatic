@@ -1,5 +1,6 @@
 import telebot
 from telebot import types
+
 choosepoint_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 sozdatgr_1 = types.KeyboardButton('Группы')
 mygroups_1 = types.KeyboardButton('Задания')
@@ -8,54 +9,60 @@ choosepoint_markup.add(sozdatgr_1, mygroups_1)
 chooserole_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопки"Задания"
 rukovoditel_2 = types.KeyboardButton('Я руководитель')
 uchastnik_2 = types.KeyboardButton('Я участник')
-zhopa_2 = types.KeyboardButton('Назад')
-chooserole_markup.add(rukovoditel_2, uchastnik_2, zhopa_2)
+zhopa = types.KeyboardButton('Назад')
+chooserole_markup.add(rukovoditel_2, uchastnik_2, zhopa)
 
 chooseaction_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопки "Группы"
 actgr1 = types.KeyboardButton('Мои группы')
 actgr2 = types.KeyboardButton('Создать группу')
-chooseaction_markup.add(actgr1, actgr2)
+chooseaction_markup.add(actgr1, actgr2, zhopa)
 
 zadacha_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо посое вывода задачи, составленной руководителем
 okzad = types.KeyboardButton('Сохранить')
 changezad = types.KeyboardButton('Изменить')
-zadacha_markup.add(okzad, changezad)
+zadacha_markup.add(okzad, changezad, zhopa)
 
 changing_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопки "изменить" для задачи
 changename = types.KeyboardButton('Название')
 changedis = types.KeyboardButton('Описание')
 changedd = types.KeyboardButton('Дедлайн')
-changing_markup.add(changename, changedis, changedd)
+changing_markup.add(changename, changedis, changedd, zhopa)
 
 otchet_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после отправки отчета
 yes = types.KeyboardButton('Принять')
 no = types.KeyboardButton('Отклонить')
-otchet_markup.add(yes, no)
+otchet_markup.add(yes, no, zhopa)
 
 chesdelat_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это после того, как мы выбираем одну из задач из списка задач
 sdat = types.KeyboardButton('Сдать')
 kspisku = types.KeyboardButton('К списку') #после этой кнопки предыдущее сообщение удаляется
-chesdelat_markup.add(sdat, kspisku)
+chesdelat_markup.add(sdat, kspisku, zhopa) #эта жопа должна возвращать к списку задач
 
 dlyagrupp_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это создание группы
 dobavit = types.KeyboardButton('Добавить участника')
 saving = types.KeyboardButton('Сохранить') #после этого пользователь возвращается на этап выбора "Группы" или "Задания"
-dlyagrupp_markup.add(dobavit, saving)
+dlyagrupp_markup.add(dobavit, saving, zhopa)
 
 zadruk_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это после кнопки "Я руководитель" в разделе "Задания"(!)
 create = types.KeyboardButton('Создать')
 free = types.KeyboardButton('Свободные')
 active = types.KeyboardButton('В процессе')
-zadruk_markup.add(create, free, active)
+zadruk_markup.add(create, free, active, zhopa)
 
 zadrab_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это после кнопки "Я участник" в разделе "Задания"
 free1 = types.KeyboardButton('Свободные')
 create1 = types.KeyboardButton('Создать свою')
 active1 = types.KeyboardButton('В процессе')
-zadrab_markup.add(free1, active1, create1)
+zadrab_markup.add(free1, active1, create1, zhopa)
 
 changegr_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это изменение группы
 dp = types.KeyboardButton('Удалить участника')
+dg = types.KeyboardButton('Удалить группу')
 zhopa = types.KeyboardButton('Назад')
-changegr_markup.add(dp, zhopa)
+changegr_markup.add(dp, dg, zhopa)
+
+yarukoblud_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это после я руководитель в группах
+redact = types.KeyboardButton('Редактировать')
+prosmotr = types.KeyboardButton('Просмотр')
+yarukoblud_markup.add(redact, prosmotr)
 
