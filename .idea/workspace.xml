@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/bot/buttons/buttons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="'Добавила кнопки'" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,6 +46,14 @@
       <option name="presentableId" value="Default" />
       <updated>1697267121143</updated>
     </task>
+    <task id="LOCAL-00001" summary="'Добавила кнопки'">
+      <created>1697274284878</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1697274284879</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -61,5 +66,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="'Добавила кнопки'" />
+    <option name="LAST_COMMIT_MESSAGE" value="'Добавила кнопки'" />
   </component>
 </project>
