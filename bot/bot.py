@@ -256,7 +256,7 @@ def main():
             markup_pages.row(left,pagination,right)
             bot.send_message(call.message.chat.id,a[data['page']-1]['string'], reply_markup=markup_pages,parse_mode="HTML")
 
-    @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'inlinelistfree')
+    @bot.callback_query_handler(func=lambda call: call.data.split('_')[1] == 'inlinelistfree')
     def chose_group_executor(call):
         cmd = call.data.split('_')[0]
         
