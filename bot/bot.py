@@ -260,7 +260,8 @@ def main():
                 bot.set_state(call.from_user.id, states.Tasks.createreview)
                 bot.send_message(call.message.chat.id,"Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников группы. Создайте группу, добавьте участников и побликуйте задачи, которые участники смогут выбрать и решить самостоятельно! Устанавливайте крайние даты решения, добавьте описание задач и работайте с другими функциями Taskmatic!\n")
                 with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
-                    data['cur_task_id'] = a[int(data['page']) -1]['task_id']
+                    page = int(data['page'])
+                    data['cur_task_id'] = a[page-1]['task_id']
             elif data['all_pages'] == 0:
                 bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
                 bot.set_state(call.from_user.id, states.Tasks.choseactionmember)
