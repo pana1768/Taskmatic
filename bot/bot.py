@@ -210,7 +210,7 @@ def main():
         elif message.text == 'Свободные':
             pass
         elif message.text == 'В процессе':
-            pass
+            
         else:
             bot.set_state(message.from_user.id, states.Groups.chooserole)
             bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
