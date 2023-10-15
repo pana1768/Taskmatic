@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="get_admin">
-      <change afterPath="$PROJECT_DIR$/db/file.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot/bot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,6 +139,7 @@
     <MESSAGE value="добавила ещё кучу миллионов кнопок" />
     <MESSAGE value="get_group_id" />
     <MESSAGE value="get_admin" />
-    <option name="LAST_COMMIT_MESSAGE" value="get_admin" />
+    <MESSAGE value="люро" />
+    <option name="LAST_COMMIT_MESSAGE" value="люро" />
   </component>
 </project>
