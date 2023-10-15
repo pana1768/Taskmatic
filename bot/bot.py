@@ -111,7 +111,7 @@ def main():
     def chooseactionadmin(message):
         if message.text == "Просмотр":
             grouplist = db.get_admin_groups(message.chat.id)
-            if len(grouplist) == 0:
+            if grouplist == 'You haven`t group':
                 bot.send_message(message.chat.id,"У вас нет администрируемых групп",reply_markup=buttons.chooserole_markup)
                 bot.set_state(message.from_user.id, states.Groups.chooserole)
             else:
@@ -121,7 +121,8 @@ def main():
             bot.set_state(message.from_user.id, states.Groups.chooserole)
             bot.send_message(message.chat.id, "Выберите роль🎭",reply_markup=buttons.chooserole_markup)
         else:
-            if len(grouplist) == 0:
+            grouplist = db.get_admin_groups(message.chat.id)
+            if grouplist == 'You haven`t group':
                 bot.send_message(message.chat.id,"У вас нет администрируемых групп",reply_markup=buttons.chooserole_markup)
                 bot.set_state(message.from_user.id, states.Groups.chooserole)
             else:
