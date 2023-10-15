@@ -53,8 +53,11 @@ def main():
             bot.set_state(message.from_user.id, states.Groups.choosertype, message.chat.id)
             bot.send_message(message.chat.id, "Выберите действие:",reply_markup=buttons.chooseaction_markup)
         else:
-            pass
+            bot.set_state(message.from_user.id, states.Tasks.choserole, message.chat.id)
+            bot.send_message(message.chat.id, "Выберите действие:",reply_markup=buttons.chooserole_markup)
         #таски
+        
+        
     @bot.message_handler(state=states.Groups.choosertype)
     def choosetype(message):
         if message.text == "Создать группу":
@@ -62,7 +65,7 @@ def main():
             bot.send_message(message.chat.id, "Введите название группы:")
         elif message.text == 'Мои группы':
             bot.set_state(message.from_user.id, states.Groups.chooserole)
-            bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
+            bot.send_message(message.chat.id, "Выберите роль:",reply_markup=buttons.chooserole_markup)
         else:
             bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
             bot.send_message(message.chat.id, "Выберите действие:",reply_markup=buttons.choosepoint_markup)
@@ -72,19 +75,19 @@ def main():
         if message.text == 'Я руководитель':
             bot.set_state(message.from_user.id, states.Groups.chooseactionadmin)
             #добавить просмотр/редактировать
-            bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
+            bot.send_message(message.chat.id,"Выберите действие:",reply_markup=buttons.yarukoblud_markup)
         elif message.text == 'Я участник':
             list_of_groups = db.get_executor_group(message.chat.id)
             if len(list_of_groups) == 0:
                 bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
             else:
                 inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
-                bot.send_message(message.chat.id,'Выберите группу', reply_markup=inline_groups_markup)
+                bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup)
             
             
         else:
             bot.set_state(message.from_user.id, states.Groups.choosertype)
-            bot.send_message(message.chat.id, "Выберите действие:",reply_markup=buttons.chooseaction_markup)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.chooseaction_markup)
         #доделать
 
     @bot.message_handler(state=states.Groups.chooseactionadmin)
@@ -92,7 +95,7 @@ def main():
         if message.text == "Просмотр":
             grouplist = db.get_admin_groups(message.chat.id)
             keylist_markup = buttons.inline_get_list(grouplist)
-            bot.send_message(message.chat.id,"Ваши группы:",reply_markup=keylist_markup)
+            bot.send_message(message.chat.id,"Ваши группы",reply_markup=keylist_markup)
         elif message.text == 'Назад':
             bot.set_state(message.from_user.id, states.Groups.chooserole)
             bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
@@ -160,10 +163,6 @@ def main():
     
     
     
-    
-    
-    
-    
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'executor')
     def chose_group_executor(call):
         group_id = call.data.split('_')[1]
@@ -188,10 +187,61 @@ def main():
     
     
     
+    @bot.message_handler(state= states.Tasks.choserole)
+    def chsrole(message):
+        if message.text == 'Я участник':
+            bot.set_state(message.from_user.id, states.Tasks.choseactionmember)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.zadruk_markup)
+        elif message.text == 'Я руководитель':
+            pass
+        else:
+            bot.set_state(message.from_user.id, states.RandomStates.start_work)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.choosepoint_markup)
+            
+    @bot.message_handler(state= states.Tasks.choseactionmember)
+    def yahz(message):
+        if message.text == 'Создать':
+            bot.set_state(message.from_user.id, states.Tasks.creating)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.choosepoint_markup)
+        elif message.text == 'Свободные':
+            pass
+        elif message.text == 'В процессе':
+            pass
+        else:
+            bot.set_state(message.from_user.id, states.Groups.chooserole)
+            bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
     
+    @bot.message_handler(state= states.Tasks.creating)
+    def chose_group(message):
+        list_of_groups = db.get_executor_group(message.chat.id)
+        if len(list_of_groups) == 0:
+            bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
+        else:
+            inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
+            bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup)
     
-    
-    
+    @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'executor')
+    def chose_group_executor(call):
+        group_id = call.data.split('_')[1]
+        with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
+            data['group_id'] = group_id
+        bot.set_state(call.from_user.id, states.Tasks.name)
+        bot.send_message(call.message.chat.id,"Введите имя таска")
+        
+    @bot.message_handler(state= states.RandomStates.name)
+    def chose_executor_reaction(message):
+        with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+            data['task_name'] = message.text
+        bot.set_state(message.from_user.id, states.Tasks.description)
+        bot.send_message(message.chat.id,"Введите описание")
+    @bot.message_handler(state= states.RandomStates.name)
+    def chose_executor_reaction(message):
+        with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+            data['task_description'] = message.text
+        
+        bot.send_message(message.chat.id,"Введите описание")
+        
+        
     
     bot.add_custom_filter(custom_filters.StateFilter(bot))
     bot.infinity_polling()

@@ -25,3 +25,13 @@ class RandomStates(StatesGroup):
     start_work = State()
     wait_invite_link = State()
     chose_leave = State()
+    
+    
+    
+class Tasks(StatesGroup):
+    choserole = State()
+    choseactionmember = State()
+    creating = State()
+    name = State()
+    description = State()
+    
