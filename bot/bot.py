@@ -288,7 +288,7 @@ def main():
                     markup_pages.row(left,pagination,right)
                     bot.edit_message_text(a[data['page']-1]['string'], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id,parse_mode="HTML")
             elif cmd == 'settask':
-                db.take_free_task(call.message.chat.id,data['group_id'])
+                db.take_free_task(call.message.chat.id,a[data['page']-1]['task_id'])
                 bot.send_message(call.message.chat.id,"Вы стали исполнителем таска")
             elif data['all_pages'] == 0:
                 bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
