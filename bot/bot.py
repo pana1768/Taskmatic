@@ -251,7 +251,7 @@ def main():
         # db.add_task_user(data_task)
         str = ''
         for key,item in data_task.items():
-            str += key + "=" + item + "\n"
+            str += str(key) + "=" + str(item) + "\n"
         bot.send_message(message.chat.id,str,reply_markup=buttons.changing_markup)
         bot.set_state(message.from_user.id, states.Tasks.wait)
         
