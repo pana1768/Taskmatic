@@ -252,7 +252,7 @@ def main():
         string = ''
         for key,item in data_task.items():
             string += str(key) + "=" + str(item) + "\n"
-        bot.send_message(message.chat.id,string,reply_markup=buttons.changing_markup)
+        bot.send_message(message.chat.id,string,reply_markup=buttons.zadacha_markup)
         bot.set_state(message.from_user.id, states.Tasks.wait)
         
     @bot.message_handler(state= states.Tasks.wait)
