@@ -65,7 +65,13 @@ def send_review(task_id,review):
     session.close()
 
 def add_task_admin():
-    pass
+    session = make_session()
+    new_task = Tasks(name_task='a', description_task='aha', user_take=15, task_group=2,status_task='free')
+    session.add(new_task)
+    session.commit()
+    session.close()
+
+# add_task_admin()
 def edit_task_user_name(task_id,new_name):
     session = make_session()
     update = session.query(Tasks).filter(Tasks.task_id == task_id).update({'name_task':new_name})
