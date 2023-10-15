@@ -219,7 +219,7 @@ def main():
     def chsrole(message):
         if message.text == 'Я участник':
             bot.set_state(message.from_user.id, states.Tasks.choseactionmember)
-            bot.send_message(message.chat.id, "Выберите действие📔",reply_markup=buttons.zadruk_markup)
+            bot.send_message(message.chat.id, "Выберите роль📔",reply_markup=buttons.zadruk_markup)
         elif message.text == 'Я руководитель':
             bot.set_state(message.from_user.id, states.Tasks.choseactionadmin)
             bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.zadruk_markup)
@@ -232,7 +232,7 @@ def main():
     def hzhz(message):
         if message.text == 'Назад':
             bot.set_state(message.from_user.id, states.Tasks.choserole, message.chat.id)
-            bot.send_message(message.chat.id, "Выберите действие📔", reply_markup=buttons.chooserole_markup)
+            bot.send_message(message.chat.id, "Выберите роль📔", reply_markup=buttons.chooserole_markup)
         #     list_of_groups = db.get_executor_group(message.chat.id)
         #     if len(list_of_groups) == 0:
         #         bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
