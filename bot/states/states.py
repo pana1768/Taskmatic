@@ -39,4 +39,6 @@ class Tasks(StatesGroup):
     changename = State()
     changedesc = State()
     createreview = State() 
+    choseactionadmin = State()
+    adminprocess = State()
     
