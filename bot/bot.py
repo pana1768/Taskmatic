@@ -258,7 +258,12 @@ def main():
                     bot.edit_message_text(a[data['page']-1], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id,parse_mode="HTML")
             elif cmd == 'send':
                 bot.set_state(call.from_user.id, states.Tasks.createreview)
-                bot.send_message(call.message.chat.id,"Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников группы. Создайте группу, добавьте участников и побликуйте задачи, которые участники смогут выбрать и решить самостоятельно! Устанавливайте крайние даты решения, добавьте описание задач и работайте с другими функциями Taskmatic!\n")
+                bot.send_message(call.message.chat.id,"Введите отчёт.\n" 
+                    "Отчёт должен содержать:\n" 
+                    "1. Здачу\n"
+                    "2. Цель\n"
+                    "3. Процесс выполнения\n"
+                    "4. Итог\n")
                 with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
                     page = int(data['page'])
                     data['cur_task_id'] = a[page-1]['task_id']
