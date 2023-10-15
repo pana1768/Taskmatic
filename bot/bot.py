@@ -219,7 +219,7 @@ def main():
                 send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
                 right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
                 left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
-                markup_pages = types.InlineKeyboardMarkup.add(send,left,pagination,right)
+                markup_pages = types.InlineKeyboardMarkup().add(send,left,pagination,right)
                 bot.send_message(message.chat.id,a[data['page']], reply_markup=markup_pages)
         else:
             bot.set_state(message.from_user.id, states.Groups.chooserole)
