@@ -209,7 +209,17 @@ def main():
                 inline_groups_markup_tasks = buttons.inline_get_list_executor_tasks(list_of_groups)
                 bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup_tasks)
         elif message.text == 'Свободные':
-            pass
+            list_of_groups = db.get_executor_group(message.chat.id)
+            if len(list_of_groups) == 0:
+                bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
+            else:
+                inline_groups_markup_tasks = buttons.inline_get_list_executor_free_tasks(list_of_groups)
+                bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup_tasks)
+        
+        
+    
+        
+        
         elif message.text == 'В процессе':
             a = db.get_tasks_user(message.chat.id)
             with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
@@ -226,6 +236,28 @@ def main():
         else:
             bot.set_state(message.from_user.id, states.Groups.chooserole)
             bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
+    
+    
+    
+    @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'executorfreetasks')
+    def chose_group_executor(call):
+        group_id = call.data.split('_')[1]
+        with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
+            data['group_id'] = group_id
+        bot.set_state(call.from_user.id, states.Tasks.name)
+        bot.send_message(call.message.chat.id,"Введите имя таска")
+        a = db.ge(message.chat.id)
+        with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+            data['all_pages'] = len(a)
+            data['page'] = 1
+            pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+            send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
+            right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
+            left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
+            markup_pages = types.InlineKeyboardMarkup()
+            markup_pages.row(send)
+            markup_pages.row(left,pagination,right)
+            bot.send_message(message.chat.id,a[data['page']-1], reply_markup=markup_pages,parse_mode="HTML")
     
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[1] == 'inlinelist')
     def chose_group_executor(call):
@@ -270,6 +302,9 @@ def main():
                 bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
                 bot.set_state(call.from_user.id, states.Tasks.choseactionmember)
         
+        
+        
+    
     @bot.message_handler(state= states.Tasks.createreview)
     def vlxijvbf(message):
             with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
