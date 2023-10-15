@@ -168,6 +168,8 @@ def main():
     def entername(message):
         if not db.check_doubled_name(message.chat.id,message.text):
             bot.send_message(message.chat.id,'У вас уже есть группа с таким названием, пожалуйста, придумайте новое❌')
+        elif '_' in message.text:
+            bot.send_message(message.chat.id,'Название группы не должно содержать специальных символов, пожалуйста введите название заново❌')
         else:
             db.create_group(message.text,message.chat.id)
             invite_id = "Твой идентификатор группы: " + message.text +"_"+ str(db.get_id_group(message.chat.id,message.text))
@@ -219,8 +221,9 @@ def main():
        
     @bot.message_handler(state= states.Tasks.choseactionadmin)  
     def hzhz(message):
-        if message.text == 'Создать':
-            pass
+        if message.text == 'Назад':
+            bot.set_state(message.from_user.id, states.Tasks.choserole, message.chat.id)
+            bot.send_message(message.chat.id, "Выберите действие📔", reply_markup=buttons.chooserole_markup)
         #     list_of_groups = db.get_executor_group(message.chat.id)
         #     if len(list_of_groups) == 0:
         #         bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
@@ -283,7 +286,7 @@ def main():
                 markup_pages.row(left,pagination,right)
                 bot.send_message(message.chat.id,a[data['page']-1]['string'], reply_markup=markup_pages,parse_mode="HTML")
         else:
-            bot.set_state(message.from_user.id, states.Groups.chooserole)
+            bot.set_state(message.from_user.id, states.Tasks.choserole)
             bot.send_message(message.chat.id, "Выберите роль🎭",reply_markup=buttons.chooserole_markup)
     
     
