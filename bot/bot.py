@@ -248,7 +248,7 @@ def main():
             with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
                 data['all_pages'] = len(a)
                 data['page'] = 1
-                pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+                pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelistfree')
                 settask = types.InlineKeyboardButton('взять',callback_data='settask_inlinelistfree')
                 right = types.InlineKeyboardButton('->',callback_data='right_inlinelistfree')
                 left = types.InlineKeyboardButton('<-',callback_data='left_inlinelistfree')
@@ -269,7 +269,7 @@ def main():
             if cmd == 'right':
                 if data['page'] + 1 <= data['all_pages']:
                     data['page']+=1
-                    pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+                    pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelistfree')
                     settask = types.InlineKeyboardButton('взять',callback_data='settask_inlinelistfree')
                     right = types.InlineKeyboardButton('->',callback_data='right_inlinelistfree')
                     left = types.InlineKeyboardButton('<-',callback_data='left_inlinelistfree')
@@ -280,7 +280,7 @@ def main():
             elif cmd == 'left':
                 if data['page'] - 1 > 0:
                     data['page'] -= 1
-                    pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+                    pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelistfree')
                     settask = types.InlineKeyboardButton('взять',callback_data='settask_inlinelistfree')
                     right = types.InlineKeyboardButton('->',callback_data='right_inlinelistfree')
                     left = types.InlineKeyboardButton('<-',callback_data='left_inlinelistfree')
