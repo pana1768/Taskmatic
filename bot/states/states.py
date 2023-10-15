@@ -34,4 +34,8 @@ class Tasks(StatesGroup):
     creating = State()
     name = State()
     description = State()
+    wait = State()
+    choosechange = State()
+    changename = State()
+    changedesc = State()
     

@@ -24,8 +24,8 @@ zadacha_markup.add(okzad, changezad, zhopa)
 changing_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после кнопки "изменить" для задачи
 changename = types.KeyboardButton('Название')
 changedis = types.KeyboardButton('Описание')
-changedd = types.KeyboardButton('Дедлайн')
-changing_markup.add(changename, changedis, changedd, zhopa)
+# changedd = types.KeyboardButton('Дедлайн')
+changing_markup.add(changename, changedis, zhopa)
 
 otchet_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это надо после отправки отчета
 yes = types.KeyboardButton('Принять')

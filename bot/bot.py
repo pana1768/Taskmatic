@@ -228,19 +228,72 @@ def main():
         bot.set_state(call.from_user.id, states.Tasks.name)
         bot.send_message(call.message.chat.id,"Введите имя таска")
         
-    @bot.message_handler(state= states.RandomStates.name)
+    @bot.message_handler(state= states.Tasks.name)
     def chose_executor_reaction(message):
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
             data['task_name'] = message.text
         bot.set_state(message.from_user.id, states.Tasks.description)
         bot.send_message(message.chat.id,"Введите описание")
-    @bot.message_handler(state= states.RandomStates.name)
+        
+    @bot.message_handler(state= states.Tasks.description)
+    def chose_executor_reaction(message):
+        data_task = {}
+        with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+            data_task['task_description'] = message.text
+            data_task['task_name'] = data['task_name']
+            data_task['task_group'] = data['group_id']
+            data_task['user_id'] = message.chat.id
+            data['full_dict'] = data_task
+        # db.add_task_user(data_task)
+        str = ''
+        for key,item in data_task.items():
+            str += key + "=" + item + "\n"
+        bot.send_message(message.chat.id,str,reply_markup=buttons.changing_markup)
+        bot.set_state(message.from_user.id, states.Tasks.wait)
+        
+    @bot.message_handler(state= states.Tasks.wait)
     def chose_executor_reaction(message):
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
-            data['task_description'] = message.text
+            data_parse = data['full_dict']
+        if message.text == "Сохранить":
+            db.add_task_user(data_parse)
+            bot.send_message(message.chat.id,'Вы успешно добавили таск',reply_markup=buttons.zadruk_markup)
+            bot.set_state(message.from_user.id, states.Tasks.choseactionmember)
+        elif message.text == "Изменить":
+            bot.set_state(message.from_user.id, states.Tasks.choosechange)
+            bot.send_message(message.chat.id,'Выберите куда хотите внести изменения',reply_markup=buttons.changing_markup)
+        else:
+            bot.set_state(message.from_user.id, states.Tasks.choseactionmember)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.zadruk_markup)
+            
+            
+            
+    @bot.message_handler(state= states.Tasks.choosechange)
+    def chose_executor_reaction(message):
+        if message.text == "Название":
+            bot.set_state(message.from_user.id, states.Tasks.changename)
+            bot.send_message(message.chat.id,'Введите новое имя',reply_markup=None)
+            
+        else:
+            bot.set_state(message.from_user.id, states.Tasks.changedesc)
+            bot.send_message(message.chat.id,'Введите новое описание',reply_markup=None)
+            
+    @bot.message_handler(state= states.Tasks.changename)
+    def chose_executor_reaction(message):
+        with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+            data['full_dict']['task_name'] = message.text
+        bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.changing_markup)
+        bot.set_state(message.from_user.id, states.Tasks.wait)
         
-        bot.send_message(message.chat.id,"Введите описание")
-        
+            
+    @bot.message_handler(state= states.Tasks.changedesc)
+    def chose_executor_reaction(message):
+        with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+            data['full_dict']['task_description'] = message.text
+        bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.changing_markup)
+        bot.set_state(message.from_user.id, states.Tasks.wait)
+            
+    
         
     
     bot.add_custom_filter(custom_filters.StateFilter(bot))
