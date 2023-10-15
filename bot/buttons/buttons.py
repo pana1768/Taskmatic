@@ -113,7 +113,3 @@ def inline_get_list_executor_tasks(list_groups:list)->types.InlineKeyboardMarkup
     return list_of_groups
 backup_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 backup_markup.add(zhopa)
-
-
-    
-    
