@@ -245,16 +245,20 @@ def main():
         with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
             data['group_id'] = group_id
             a = db.get_free_task(group_id)
-            data['all_pages'] = len(a)
-            data['page'] = 1
-            pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelistfree')
-            settask = types.InlineKeyboardButton('взять',callback_data='settask_inlinelistfree')
-            right = types.InlineKeyboardButton('->',callback_data='right_inlinelistfree')
-            left = types.InlineKeyboardButton('<-',callback_data='left_inlinelistfree')
-            markup_pages = types.InlineKeyboardMarkup()
-            markup_pages.row(settask)
-            markup_pages.row(left,pagination,right)
-            bot.send_message(call.message.chat.id,a[data['page']-1]['string'], reply_markup=markup_pages,parse_mode="HTML")
+            if len(a) != 0:
+                data['all_pages'] = len(a)
+                data['page'] = 1
+                pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelistfree')
+                settask = types.InlineKeyboardButton('взять',callback_data='settask_inlinelistfree')
+                right = types.InlineKeyboardButton('->',callback_data='right_inlinelistfree')
+                left = types.InlineKeyboardButton('<-',callback_data='left_inlinelistfree')
+                markup_pages = types.InlineKeyboardMarkup()
+                markup_pages.row(settask)
+                markup_pages.row(left,pagination,right)
+                bot.send_message(call.message.chat.id,a[data['page']-1]['string'], reply_markup=markup_pages,parse_mode="HTML")
+            else:
+                bot.send_message(call.message.chat.id,'В этой группе нет свободных тасков',reply_markup=buttons.zadruk_markup)
+                bot.set_state(call.from_user.id, states.Tasks.choseactionmember)
 
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[1] == 'inlinelistfree')
     def chose_group_executor(call):
