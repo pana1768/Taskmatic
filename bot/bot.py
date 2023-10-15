@@ -419,8 +419,7 @@ def main():
             data['full_dict'] = data_task
         # db.add_task_user(data_task)
         string = ''
-        for key,item in data_task.items():
-            string += str(key) + "=" + str(item) + "\n"
+        string = "Ваша задача:\n" + f"Имя - {data_task['task_name']}\n" + f"Описание - {data_task['task_description']}\n"
         bot.send_message(message.chat.id,string,reply_markup=buttons.zadacha_markup)
         bot.set_state(message.from_user.id, states.Tasks.wait)
         
