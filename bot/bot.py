@@ -111,15 +111,23 @@ def main():
     def chooseactionadmin(message):
         if message.text == "Просмотр":
             grouplist = db.get_admin_groups(message.chat.id)
-            keylist_markup = buttons.inline_get_list(grouplist)
-            bot.send_message(message.chat.id,"Ваши группы👥",reply_markup=keylist_markup)
+            if len(grouplist) == 0:
+                bot.send_message(message.chat.id,"У вас нет администрируемых групп",reply_markup=buttons.chooserole_markup)
+                bot.set_state(message.from_user.id, states.Groups.chooserole)
+            else:
+                keylist_markup = buttons.inline_get_list(grouplist)
+                bot.send_message(message.chat.id,"Ваши группы👥",reply_markup=keylist_markup)
         elif message.text == 'Назад':
             bot.set_state(message.from_user.id, states.Groups.chooserole)
             bot.send_message(message.chat.id, "Выберите роль🎭",reply_markup=buttons.chooserole_markup)
         else:
-            grouplist = db.get_admin_groups(message.chat.id)
-            keylist_markup = buttons.inline_get_list_edit(grouplist)
-            bot.send_message(message.chat.id,"Выберите группу👥",reply_markup=keylist_markup)
+            if len(grouplist) == 0:
+                bot.send_message(message.chat.id,"У вас нет администрируемых групп",reply_markup=buttons.chooserole_markup)
+                bot.set_state(message.from_user.id, states.Groups.chooserole)
+            else:
+                grouplist = db.get_admin_groups(message.chat.id)
+                keylist_markup = buttons.inline_get_list_edit(grouplist)
+                bot.send_message(message.chat.id,"Выберите группу👥",reply_markup=keylist_markup)
             
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'adminedit')
     def get_group_info(call):
