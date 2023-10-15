@@ -244,7 +244,7 @@ def main():
                     markup_pages = types.InlineKeyboardMarkup()
                     markup_pages.row(send)
                     markup_pages.row(left,pagination,right)
-                    bot.edit_message_text(a[data['page']-1], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id,parse_mode="HTML")
+                    bot.edit_message_text(a[data['page']-1]['string'], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id,parse_mode="HTML")
             elif cmd == 'left':
                 if data['page'] - 1 > 0:
                     data['page'] -= 1
@@ -255,7 +255,7 @@ def main():
                     markup_pages = types.InlineKeyboardMarkup()
                     markup_pages.row(send)
                     markup_pages.row(left,pagination,right)
-                    bot.edit_message_text(a[data['page']-1], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id,parse_mode="HTML")
+                    bot.edit_message_text(a[data['page']-1]['string'], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id,parse_mode="HTML")
             elif cmd == 'send':
                 bot.set_state(call.from_user.id, states.Tasks.createreview)
                 bot.send_message(call.message.chat.id,"Введите отчёт.\n" 
@@ -264,8 +264,8 @@ def main():
                     "2. Цель\n"
                     "3. Процесс выполнения\n"
                     "4. Итог\n")
-                page = int(data['page'])
-                data['cur_task_id'] = a[page-1]['task_id']
+                page = int(data['page'])-1
+                data['cur_task_id'] = a[page]['task_id']
             elif data['all_pages'] == 0:
                 bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
                 bot.set_state(call.from_user.id, states.Tasks.choseactionmember)
