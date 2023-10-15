@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="get_admin">
+    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="ввмвмацр">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot/bot.py" afterDir="false" />
     </list>
@@ -147,6 +147,7 @@
     <MESSAGE value="get_group_id" />
     <MESSAGE value="get_admin" />
     <MESSAGE value="люро" />
-    <option name="LAST_COMMIT_MESSAGE" value="люро" />
+    <MESSAGE value="ввмвмацр" />
+    <option name="LAST_COMMIT_MESSAGE" value="ввмвмацр" />
   </component>
 </project>
