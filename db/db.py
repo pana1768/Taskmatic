@@ -14,9 +14,9 @@ def admin_in_processing(group_id):
     session = make_session()
     arr = []
     for c in session.query(Tasks).filter(Tasks.task_group == group_id).filter(Tasks.status_task == 'today'):
-        for i in session.query(Users).filter(Users.user_id == c.user_id).all():
+        for i in session.query(Users).filter(Users.user_id == c.user_take).all():
             username = i.username
-        arr.append({'Название задачи: ':c.name_task,'Пользователь: ' : username})
+        arr.append({'Название задачи':c.name_task,'Пользователь' : username})
     return arr
 
 def get_free_task(group_id):
