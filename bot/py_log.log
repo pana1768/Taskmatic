@@ -1,0 +1,25 @@
+2023-10-15 15:53:11,607 ERROR Infinity polling exception: string indices must be integers
+2023-10-15 15:53:11,608 ERROR Exception traceback:
+Traceback (most recent call last):
+  File "D:\python\Taskmatic\venv\lib\site-packages\telebot\__init__.py", line 955, in infinity_polling
+    self.polling(non_stop=True, timeout=timeout, long_polling_timeout=long_polling_timeout,
+  File "D:\python\Taskmatic\venv\lib\site-packages\telebot\__init__.py", line 1043, in polling
+    self.__threaded_polling(non_stop=non_stop, interval=interval, timeout=timeout, long_polling_timeout=long_polling_timeout,
+  File "D:\python\Taskmatic\venv\lib\site-packages\telebot\__init__.py", line 1118, in __threaded_polling
+    raise e
+  File "D:\python\Taskmatic\venv\lib\site-packages\telebot\__init__.py", line 1074, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "D:\python\Taskmatic\venv\lib\site-packages\telebot\util.py", line 147, in raise_exceptions
+    raise self.exception_info
+  File "D:\python\Taskmatic\venv\lib\site-packages\telebot\util.py", line 90, in run
+    task(*args, **kwargs)
+  File "D:\python\Taskmatic\venv\lib\site-packages\telebot\__init__.py", line 6801, in _run_middlewares_and_handler
+    result = handler['function'](message)
+  File "D:\python\Taskmatic\bot\bot.py", line 252, in hzhz
+    inline_groups_markup_tasks = buttons.inline_get_list_admin_process(list_of_groups)
+  File "D:\python\Taskmatic\bot\buttons\buttons.py", line 118, in inline_get_list_admin_process
+    but = types.InlineKeyboardButton(text = group['Group name'], callback_data='adminprocesstasks_'+str(group['Group id']))
+TypeError: string indices must be integers
+
+2023-10-15 16:09:21,398 ERROR Infinity polling: polling exited
+2023-10-15 16:09:21,398 ERROR Break infinity polling

@@ -145,6 +145,17 @@ def check_user(user_id):
         session.close()
         return False
 
+def check_in_group(invite_id,user_id):
+    group_name, group_id = invite_id.split('_')
+    session = make_session()
+    k = 0
+    for c in session.query(GroupExecutor).filter(GroupExecutor.group_id == group_id).filter(GroupExecutor.user_id == user_id).all():
+        k += 1
+    if k == 0:
+        return 10
+    else:
+        return 20
+
 def join_group(invite_id, user_id):
     try:
         group_name, group_id = invite_id.split('_')
@@ -159,7 +170,8 @@ def join_group(invite_id, user_id):
         session.close()
         return True
     except:
-        return False
+        code = check_in_group(invite_id,user_id)
+        return code
 
 
 # join_group('lnkln_3',934478159)
