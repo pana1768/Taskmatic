@@ -47,7 +47,7 @@ def get_tasks_user(user_id):
 
 def send_review(task_id,review):
     session = make_session()
-    new = session.query(Tasks).filter(Tasks.task_id == task_id).update({'description_task':review})
+    new = session.query(Tasks).filter(Tasks.task_id == task_id).update({'description_task':review, 'status_task' : 'sended'})
     session.commit()
     session.close()
 
