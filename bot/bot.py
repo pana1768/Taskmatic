@@ -249,7 +249,7 @@ def main():
             data_task['user_id'] = message.chat.id
             data['full_dict'] = data_task
         # db.add_task_user(data_task)
-        str = ''
+        string = ''
         for key,item in data_task.items():
             string += str(key) + "=" + str(item) + "\n"
         bot.send_message(message.chat.id,string,reply_markup=buttons.changing_markup)
