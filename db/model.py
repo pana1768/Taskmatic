@@ -33,14 +33,15 @@ class Tasks(Base):
     user_take = sq.Column(sq.Integer)
     status_task = sq.Column(sq.String)
     task_group = sq.Column(sq.Integer)
+    time = sq.Column(sq.DateTime(timezone=True),server_default=sq.func.now())
     # data = sq.Column(sq.bytea)
 
-    def __init__(self,task_id,name_task,description_task, user_take, task_group):
-        self.task_id = task_id
+    def __init__(self,name_task,description_task, user_take, task_group, status_task):
         self.name_task = name_task
         self.description_task = description_task
         self.user_take = user_take
         self.task_group = task_group
+        self.status_task = status_task
 
     # user = relationship(Users, backref='task')
     def __str__(self):

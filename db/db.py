@@ -1,6 +1,6 @@
 import sqlalchemy as sq
 from sqlalchemy.orm import sessionmaker
-from db.model import create_tables, Users, Tasks, GroupExecutor, AllGroup
+from model import create_tables, Users, Tasks, GroupExecutor, AllGroup
 DSN = 'postgresql://postgres:pana@localhost:5432/database'
 engine = sq.create_engine(DSN)
 create_tables(engine)
@@ -9,6 +9,9 @@ def save_data(file_name):
     with open(file_name, 'rb') as file:
         file_data = file.read()
     return file_data
+
+def get_tasts_group():
+    pass
 
 def make_session():
     Session = sessionmaker(bind=engine)
@@ -26,12 +29,24 @@ def add_task_user(dict_data):
     task_name = dict_data['task_name']
     task_description = dict_data['task_description']
     user_id = dict_data['user_id']
-    task_group = dict_data['group_id']
+    task_group = dict_data['task_group']
     session = make_session()
-    new_task = Tasks(name_task=task_name, description_task=task_description, user_take=user_id, task_group=task_group)
+    new_task = Tasks(name_task=task_name, description_task=task_description, user_take=user_id, task_group=task_group,status_task='today')
     session.add(new_task)
     session.commit()
     session.close()
+
+# add_task_user({'task_name':'name','task_description':'description','user_id':10,'task_group':15})
+
+def get_tasks_user(user_id):
+    session = make_session()
+    arr = []
+    for c in session.query(Tasks).filter(Tasks.user_take == user_id).filter(Tasks.status_task == 'today').all():
+        arr.append('<b>'+c.name_task+'</b>'+ '\n' + '    '+c.description_task)
+    return arr
+
+
+
 
 def add_task_admin():
     pass
