@@ -243,10 +243,10 @@ def main():
         with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
             data['group_id'] = group_id
             a = db.get_free_task(group_id)
-            with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
+            if len(a) != 0:
                 data['all_pages'] = len(a)
                 data['page'] = 1
-                pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+                pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelistfree')
                 settask = types.InlineKeyboardButton('взять',callback_data='settask_inlinelistfree')
                 right = types.InlineKeyboardButton('->',callback_data='right_inlinelistfree')
                 left = types.InlineKeyboardButton('<-',callback_data='left_inlinelistfree')
@@ -254,8 +254,11 @@ def main():
                 markup_pages.row(settask)
                 markup_pages.row(left,pagination,right)
                 bot.send_message(call.message.chat.id,a[data['page']-1]['string'], reply_markup=markup_pages,parse_mode="HTML")
-    
-    @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'inlinelistfree')
+            else:
+                bot.send_message(call.message.chat.id,'В этой группе нет свободных тасков',reply_markup=buttons.zadruk_markup)
+                bot.set_state(call.from_user.id, states.Tasks.choseactionmember)
+
+    @bot.callback_query_handler(func=lambda call: call.data.split('_')[1] == 'inlinelistfree')
     def chose_group_executor(call):
         cmd = call.data.split('_')[0]
         
@@ -267,7 +270,7 @@ def main():
             if cmd == 'right':
                 if data['page'] + 1 <= data['all_pages']:
                     data['page']+=1
-                    pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+                    pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelistfree')
                     settask = types.InlineKeyboardButton('взять',callback_data='settask_inlinelistfree')
                     right = types.InlineKeyboardButton('->',callback_data='right_inlinelistfree')
                     left = types.InlineKeyboardButton('<-',callback_data='left_inlinelistfree')
@@ -278,7 +281,7 @@ def main():
             elif cmd == 'left':
                 if data['page'] - 1 > 0:
                     data['page'] -= 1
-                    pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+                    pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelistfree')
                     settask = types.InlineKeyboardButton('взять',callback_data='settask_inlinelistfree')
                     right = types.InlineKeyboardButton('->',callback_data='right_inlinelistfree')
                     left = types.InlineKeyboardButton('<-',callback_data='left_inlinelistfree')
@@ -287,7 +290,7 @@ def main():
                     markup_pages.row(left,pagination,right)
                     bot.edit_message_text(a[data['page']-1]['string'], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id,parse_mode="HTML")
             elif cmd == 'settask':
-                db.take_free_task(call.message.chat.id,data['group_id'])
+                db.take_free_task(call.message.chat.id,a[data['page']-1]['task_id'])
                 bot.send_message(call.message.chat.id,"Вы стали исполнителем таска")
             elif data['all_pages'] == 0:
                 bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
