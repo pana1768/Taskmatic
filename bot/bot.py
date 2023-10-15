@@ -296,17 +296,20 @@ def main():
         
         elif message.text == 'В процессе':
             a = db.get_tasks_user(message.chat.id)
-            with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
-                data['all_pages'] = len(a)
-                data['page'] = 1
-                pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
-                send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
-                right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
-                left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
-                markup_pages = types.InlineKeyboardMarkup()
-                markup_pages.row(send)
-                markup_pages.row(left,pagination,right)
-                bot.send_message(message.chat.id,a[data['page']-1]['string'], reply_markup=markup_pages,parse_mode="HTML")
+            if len(a) == 0:
+                bot.send_message(message.chat.id,"У вас нет активных задач",reply_markup=buttons.zadruk_markup)
+            else:
+                with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+                    data['all_pages'] = len(a)
+                    data['page'] = 1
+                    pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+                    send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
+                    right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
+                    left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
+                    markup_pages = types.InlineKeyboardMarkup()
+                    markup_pages.row(send)
+                    markup_pages.row(left,pagination,right)
+                    bot.send_message(message.chat.id,a[data['page']-1]['string'], reply_markup=markup_pages,parse_mode="HTML")
         else:
             bot.set_state(message.from_user.id, states.Tasks.choserole)
             bot.send_message(message.chat.id, "Выберите роль🎭",reply_markup=buttons.chooserole_markup)
