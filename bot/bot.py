@@ -244,8 +244,6 @@ def main():
         group_id = call.data.split('_')[1]
         with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
             data['group_id'] = group_id
-            bot.set_state(call.from_user.id, states.Tasks.name)
-            bot.send_message(call.message.chat.id,"Введите имя таска")
             a = db.get_free_task(group_id)
             with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
                 data['all_pages'] = len(a)
@@ -265,6 +263,7 @@ def main():
         
         with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
             a = db.get_free_task(data['group_id'])
+            print(a)
             all_pages = data['all_pages']
             cur_page = data['page']
             if cmd == 'right':
