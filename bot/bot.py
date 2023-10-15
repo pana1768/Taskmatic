@@ -204,20 +204,21 @@ def main():
     @bot.message_handler(state= states.Tasks.choseactionadmin)  
     def hzhz(message):
         if message.text == 'Создать':
-            list_of_groups = db.get_executor_group(message.chat.id)
-            if len(list_of_groups) == 0:
-                bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
-            else:
-                inline_groups_markup_tasks = buttons.inline_get_list_executor_tasks(list_of_groups)
-                bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup_tasks)
-        elif message.text == 'Свободные':
-            list_of_groups = db.get_executor_group(message.chat.id)
-            if len(list_of_groups) == 0:
-                bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
-            else:
-                list_of_groups = db.get_admin_groups(message.chat.id)
-                inline_groups_markup_tasks = buttons.inline_get_list_admin_process(list_of_groups)
-                bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup_tasks)
+            pass
+        #     list_of_groups = db.get_executor_group(message.chat.id)
+        #     if len(list_of_groups) == 0:
+        #         bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
+        #     else:
+        #         inline_groups_markup_tasks = buttons.inline_get_list_executor_tasks(list_of_groups)
+        #         bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup_tasks)
+        # elif message.text == 'Свободные':
+        #     list_of_groups = db.get_executor_group(message.chat.id)
+        #     if len(list_of_groups) == 0:
+        #         bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
+        else:
+            list_of_groups = db.get_admin_groups(message.chat.id)
+            inline_groups_markup_tasks = buttons.inline_get_list_admin_process(list_of_groups)
+            bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup_tasks)
          
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'adminprocesstasks')
     def sajdnnc(call):
