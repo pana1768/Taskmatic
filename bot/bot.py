@@ -16,11 +16,17 @@ def main():
     
     @bot.message_handler(state='*',commands=['jointogroup'])
     def join(message):
-        bot.send_message(message.chat.id, "Введите идентификатор группы")
-        bot.register_next_step_handler(message,join_to_group)
+        if db.check_user(message.chat.id):
+            bot.set_state(message.from_user.id, states.RandomStates.register, message.chat.id)
+            bot.send_message(message.chat.id,"Добро пожаловать в Taskmatic!\n"
+                         "Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников групп.\n"
+                         "Пожалуйста, введите свое имя для продолжения работы, а после снова вызовите")
+        else:
+            bot.send_message(message.chat.id, "Введите идентификатор группы🆔")
+            bot.register_next_step_handler(message,join_to_group)
     def join_to_group(message):
         db.join_group(message.text, message.chat.id)
-        bot.send_message(message.chat.id, "Вы успешно добавились в группу")
+        bot.send_message(message.chat.id, "Вы успешно добавились в группу✅")
     
     
     
