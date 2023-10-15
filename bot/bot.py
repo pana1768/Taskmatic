@@ -286,7 +286,7 @@ def main():
     def chose_executor_reaction(message):
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
             data['full_dict']['task_name'] = message.text
-        bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.changing_markup)
+        bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.zadacha_markup)
         bot.set_state(message.from_user.id, states.Tasks.wait)
         
             
@@ -294,7 +294,7 @@ def main():
     def chose_executor_reaction(message):
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
             data['full_dict']['task_description'] = message.text
-        bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.changing_markup)
+        bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.zadacha_markup)
         bot.set_state(message.from_user.id, states.Tasks.wait)
             
     
