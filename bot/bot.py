@@ -258,7 +258,7 @@ def main():
                     bot.edit_message_text(a[data['page']-1], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id,parse_mode="HTML")
             elif cmd == 'send':
                 bot.set_state(call.from_user.id, states.Tasks.createreview)
-                bot.send_message(call.message.chat.id,"Введите отчет")
+                bot.send_message(call.message.chat.id,"Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников группы. Создайте группу, добавьте участников и побликуйте задачи, которые участники смогут выбрать и решить самостоятельно! Устанавливайте крайние даты решения, добавьте описание задач и работайте с другими функциями Taskmatic!\n")
                 with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
                     data['cur_task_id'] = a[data['page']-1]['task_id']
             elif data['all_pages'] == 0:
@@ -267,7 +267,12 @@ def main():
         
     @bot.message_handler(state= states.Tasks.createreview)
     def vlxijvbf(message):
-             
+            with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+                    task = data['cur_task_id']
+                    db.send_review(task, message.text)
+                    bot.send_message(message.chat.id,'Вы успешно сдали отчет',reply_markup=buttons.zadruk_markup)
+                    bot.set_state(message.from_user.id, states.Tasks.choseactionmember)
+                    
     
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'executortasks')
     def chose_group_executor(call):
