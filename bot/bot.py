@@ -226,7 +226,7 @@ def main():
         string = "Активные таски:\n"
         data = db.admin_in_processing(group_id)
         for i in data:
-            str += f"    {i['Название задачи']} - {i['Пользователь']}\n"
+            string += f"    {i['Название задачи']} - {i['Пользователь']}\n"
         
         
         bot.send_message(call.message.chat.id,string)
