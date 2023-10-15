@@ -260,11 +260,17 @@ def main():
         group_id = call.data.split('_')[1]
         string = "Активные таски:\n"
         data = db.admin_in_processing(group_id)
-        for i in data:
-            string += f"    {i['Название задачи']} - {i['Пользователь']}\n"
-        
-        
-        bot.send_message(call.message.chat.id,string)
+        if len(data) == 0:
+            string += "Отсутствуют"
+            bot.send_message(call.message.chat.id,string)
+            bot.set_state(call.from_user.id, states.Tasks.choseactionadmin)
+            bot.send_message(call.message.chat.id, "Выберите действие",reply_markup=buttons.zadruk_markup)
+        else:
+            for i in data:
+                string += f"    {i['Название задачи']} - {i['Пользователь']}\n"
+            bot.send_message(call.message.chat.id,string)
+            bot.set_state(call.from_user.id, states.Tasks.choseactionadmin)
+            bot.send_message(call.message.chat.id, "Выберите действие",reply_markup=buttons.zadruk_markup)
          
          
     @bot.message_handler(state= states.Tasks.choseactionmember)
