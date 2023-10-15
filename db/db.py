@@ -14,7 +14,7 @@ def get_free_task(group_id):
     session = make_session()
     arr = []
     for c in session.query(Tasks).filter(Tasks.task_group == group_id).filter(Tasks.status_task == 'free').all():
-        arr.append({'task_name' : c.name_task, 'task_description' : c.description_task, 'task_id' : c.task_id})
+        arr.append({'string' : '<b>'+c.name_task+'</b>'+ '\n' + '    '+c.description_task, 'task_id' : c.task_id})
     return arr
 
 def take_free_task(user_id,task_id):
