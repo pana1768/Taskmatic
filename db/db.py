@@ -1,6 +1,6 @@
 import sqlalchemy as sq
 from sqlalchemy.orm import sessionmaker
-from model import create_tables, Users, Tasks, GroupExecutor, AllGroup
+from db.model import create_tables, Users, Tasks, GroupExecutor, AllGroup
 DSN = 'postgresql://postgres:pana@localhost:5432/database'
 engine = sq.create_engine(DSN)
 create_tables(engine)
@@ -45,8 +45,11 @@ def get_tasks_user(user_id):
         arr.append('<b>'+c.name_task+'</b>'+ '\n' + '    '+c.description_task)
     return arr
 
-
-
+def send_review(task_id,review):
+    session = make_session()
+    new = session.query(Tasks).filter(Tasks.task_id == task_id).update({'description_task':review})
+    session.commit()
+    session.close()
 
 def add_task_admin():
     pass
@@ -163,6 +166,8 @@ def info_groups(group_id):
         group_name = c.group_name
     for c in session.query(GroupExecutor).filter(GroupExecutor.group_id == group_id).all():
         count_members += 1
+    for c in session.query(Tasks).filter(Tasks.task_group == group_id).all():
+        count_tasks += 1
     result = '<b>' + group_name + '</b>' + '\n' + '    ' + 'Количество участников: ' + str(count_members) + '\n' + '    ' + 'Количество заданий: ' + str(count_tasks)
     return result
 
