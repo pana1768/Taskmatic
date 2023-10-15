@@ -59,7 +59,7 @@ prosmotr = types.KeyboardButton('Просмотр')
 yarukoblud_markup.add(redact, prosmotr, zhopa)
 
 uchastchange_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это после кнопки редактировать у руководителя в группах
-exite = types.KeyboardButton('Выйти из группы')
+exite = types.KeyboardButton('Выйти из группы❌')
 uchastchange_markup.add(exite, zhopa)
 
 areyousure_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это после "Вы уверены, что хотите выйти из группы?"
