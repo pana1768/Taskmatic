@@ -219,9 +219,7 @@ def main():
                 send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
                 right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
                 left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
-                markup_pages = types.InlineKeyboardMarkup()
-                markup_pages.row(send)
-                markup_pages.row(left,pagination,right)
+                markup_pages = types.InlineKeyboardMarkup().add(send,left,pagination,right)
                 bot.send_message(message.chat.id,a[data['page']], reply_markup=markup_pages)
         else:
             bot.set_state(message.from_user.id, states.Groups.chooserole)
@@ -244,7 +242,7 @@ def main():
                 markup_pages = types.InlineKeyboardMarkup()
                 markup_pages.row(send)
                 markup_pages.row(left,pagination,right)
-                bot.send_message(call.message.chat.id,a[data['page']], reply_markup=markup_pages)
+                bot.edit_message_text(a[data['page']], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id)
             elif cmd == 'left':
                 if data['page'] - 1 > 0:
                     data['page'] -= 1
@@ -255,7 +253,7 @@ def main():
                 markup_pages = types.InlineKeyboardMarkup()
                 markup_pages.row(send)
                 markup_pages.row(left,pagination,right)
-                bot.send_message(call.message.chat.id,a[data['page']], reply_markup=markup_pages)
+                bot.edit_message_text(a[data['page']], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id)
         
             elif data['all_pages'] == 0:
                 bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
