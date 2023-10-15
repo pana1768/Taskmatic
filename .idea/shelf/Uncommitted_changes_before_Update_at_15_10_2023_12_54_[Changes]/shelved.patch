@@ -1,0 +1,12 @@
+Index: db/file.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/db/file.txt b/db/file.txt
+new file mode 100644
+--- /dev/null	(date 1697363626032)
++++ b/db/file.txt	(date 1697363626032)
+@@ -0,0 +1,1 @@
++Hello motherfucker
+\ No newline at end of file
