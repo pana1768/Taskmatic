@@ -43,16 +43,8 @@ saving = types.KeyboardButton('Сохранить') #после этого по�
 dlyagrupp_markup.add(dobavit, saving, zhopa)
 
 zadruk_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это после кнопки "Я руководитель" в разделе "Задания"(!)
-create = types.KeyboardButton('Создать')
-free = types.KeyboardButton('Свободные')
 active = types.KeyboardButton('В процессе')
-zadruk_markup.add(create, free, active, zhopa)
-
-zadrab_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это после кнопки "Я участник" в разделе "Задания"
-free1 = types.KeyboardButton('Свободные')
-create1 = types.KeyboardButton('Создать свою')
-active1 = types.KeyboardButton('В процессе')
-zadrab_markup.add(free1, active1, create1, zhopa)
+zadruk_markup.add(active, zhopa)
 
 changegr_markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #это изменение группы
 dp = types.KeyboardButton('Удалить участника')
