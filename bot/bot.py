@@ -232,7 +232,7 @@ def main():
                 markup_pages = types.InlineKeyboardMarkup()
                 markup_pages.row(send)
                 markup_pages.row(left,pagination,right)
-                bot.send_message(message.chat.id,a[data['page']-1], reply_markup=markup_pages,parse_mode="HTML")
+                bot.send_message(message.chat.id,a[data['page']-1]['string'], reply_markup=markup_pages,parse_mode="HTML")
         else:
             bot.set_state(message.from_user.id, states.Groups.chooserole)
             bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
