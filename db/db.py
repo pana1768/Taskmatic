@@ -10,6 +10,19 @@ def save_data(file_name):
         file_data = file.read()
     return file_data
 
+def get_free_task(group_id):
+    session = make_session()
+    arr = []
+    for c in session.query(Tasks).filter(Tasks.task_group == group_id).filter(Tasks.status_task == 'free').all():
+        arr.append({'task_name' : c.name_task, 'task_description' : c.description_task, 'task_id' : c.task_id})
+    return arr
+
+def take_free_task(user_id,task_id):
+    session = make_session()
+    update = session.query(Tasks).filter(Tasks.task_id == task_id).update({'user_take':user_id, 'status_task' : 'today'})
+    session.commit()
+    session.close()
+
 def get_tasts_group():
     pass
 
@@ -42,7 +55,7 @@ def get_tasks_user(user_id):
     session = make_session()
     arr = []
     for c in session.query(Tasks).filter(Tasks.user_take == user_id).filter(Tasks.status_task == 'today').all():
-        arr.append('<b>'+c.name_task+'</b>'+ '\n' + '    '+c.description_task)
+        arr.append({'string' : '<b>'+c.name_task+'</b>'+ '\n' + '    '+c.description_task, 'task_id' : c.task_id})
     return arr
 
 def send_review(task_id,review):
