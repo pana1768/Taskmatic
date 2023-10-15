@@ -243,11 +243,18 @@ def main():
         #     list_of_groups = db.get_executor_group(message.chat.id)
         #     if len(list_of_groups) == 0:
         #         bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
-        else:
+        elif message.text == 'В процессе':
+            
             list_of_groups = db.get_admin_groups(message.chat.id)
+            if list_of_groups == 'You haven`t group':
+                bot.send_message(message.chat.id,"У вас нет администрируемых групп",reply_markup=buttons.chooserole_markup)
+                bot.set_state(message.from_user.id, states.Tasks.choserole)
             inline_groups_markup_tasks = buttons.inline_get_list_admin_process(list_of_groups)
             bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup_tasks)
-         
+        else:
+            bot.send_message(message.chat.id,'Функция пока недоступна... Но в скором времени она обязательно появится!')
+            
+            
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'adminprocesstasks')
     def sajdnnc(call):
         group_id = call.data.split('_')[1]
