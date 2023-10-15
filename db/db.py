@@ -22,13 +22,30 @@ def register_user(user_id,name,username):
     session.commit()
     session.close()
 
-def add_task(task_name, task_description, file_name):
+def add_task_user(dict_data):
+    task_name = dict_data['task_name']
+    task_description = dict_data['task_description']
+    user_id = dict_data['user_id']
+    task_group = dict_data['group_id']
     session = make_session()
-    data = save_data(file_name)
-    new_task = Tasks(name_task=task_name, description_task=task_description, data=data)
+    new_task = Tasks(name_task=task_name, description_task=task_description, user_take=user_id, task_group=task_group)
     session.add(new_task)
     session.commit()
     session.close()
+
+def add_task_admin():
+    pass
+def edit_task_user_name(task_id,new_name):
+    session = make_session()
+    update = session.query(Tasks).filter(Tasks.task_id == task_id).update({'name_task':new_name})
+    session.commit()
+    session.close()
+def edit_task_user_description(task_id,new_description):
+    session = make_session()
+    update = session.query(Tasks).filter(Tasks.task_id == task_id).update({'description_task': new_description})
+    session.commit()
+    session.close()
+
 
 def user_take_task(task_id, user_id):
     session = make_session()
