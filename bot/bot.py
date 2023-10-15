@@ -14,7 +14,7 @@ bot = telebot.TeleBot('6652605107:AAFLxE_GAkvr-HC4AKW3h_WotvYYiOBrSdk',state_sto
 
 def main():
     
-    @bot.message_handler(state='*',commands=['jointogroup'])
+    @bot.message_handler(commands=['jointogroup'])
     def join(message):
         if db.check_user(message.chat.id):
             bot.set_state(message.from_user.id, states.RandomStates.register, message.chat.id)
@@ -25,9 +25,10 @@ def main():
             bot.send_message(message.chat.id, "Введите идентификатор группы🆔")
             bot.register_next_step_handler(message,join_to_group)
     def join_to_group(message):
-        db.join_group(message.text, message.chat.id)
-        bot.send_message(message.chat.id, "Вы успешно добавились в группу✅")
-    
+        if db.join_group(message.text, message.chat.id):
+            bot.send_message(message.chat.id, "Вы успешно добавились в группу✅")
+        else:
+            bot.send_message(message.chat.id, "Неверный идентефикатор группы")
     
     
     
