@@ -35,26 +35,25 @@ def main():
                          "Пожалуйста, введите Ваше имя для продолжения работы💬")
         else:
             bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
-            bot.send_message(message.chat.id,"Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников группы.📝\n"
+            bot.send_message(message.chat.id,"Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников группы.\n"
                              "\n"
-                             "Создайте группу, добавьте участников и побликуйте задачи, которые участники смогут выбрать и решить самостоятельно! Установите крайние даты решения, добавьте описание задач и работайте с другими функциями Taskmatic!❤\n",reply_markup=buttons.choosepoint_markup)
+                             "Создайте группу, добавьте участников и побликуйте задачи, которые участники смогут выбрать и решить самостоятельно! Установите крайние даты решения, добавьте описание задач и работайте с другими функциями Taskmatic!\n",reply_markup=buttons.choosepoint_markup)
         
     @bot.message_handler(state=states.RandomStates.register)
-
     def register(message):
         a = "@" + message.from_user.username
         db.register_user(message.chat.id,message.text,a)
         bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
-        bot.send_message(message.chat.id, "Выберите действие📔", reply_markup=buttons.choosepoint_markup)
+        bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.choosepoint_markup)
 
     @bot.message_handler(state=states.RandomStates.start_work)
     def start_work(message):
         if message.text == 'Группы':
             bot.set_state(message.from_user.id, states.Groups.choosertype, message.chat.id)
-            bot.send_message(message.chat.id, "Выберите действие📔",reply_markup=buttons.chooseaction_markup)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.chooseaction_markup)
         else:
             bot.set_state(message.from_user.id, states.Tasks.choserole, message.chat.id)
-            bot.send_message(message.chat.id, "Выберите действие📔",reply_markup=buttons.chooserole_markup)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.chooserole_markup)
         #таски
         
         
@@ -62,32 +61,32 @@ def main():
     def choosetype(message):
         if message.text == "Создать группу":
             bot.set_state(message.from_user.id, states.CreateGroup.entername)
-            bot.send_message(message.chat.id, "Введите название группы💬")
+            bot.send_message(message.chat.id, "Введите название группы")
         elif message.text == 'Мои группы':
             bot.set_state(message.from_user.id, states.Groups.chooserole)
-            bot.send_message(message.chat.id, "Выберите роль🎭",reply_markup=buttons.chooserole_markup)
+            bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
         else:
             bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
-            bot.send_message(message.chat.id, "Выберите действие📔",reply_markup=buttons.choosepoint_markup)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.choosepoint_markup)
             
     @bot.message_handler(state=states.Groups.chooserole)
     def choserole(message):
         if message.text == 'Я руководитель':
             bot.set_state(message.from_user.id, states.Groups.chooseactionadmin)
             #добавить просмотр/редактировать
-            bot.send_message(message.chat.id,"Выберите действие📔",reply_markup=buttons.yarukoblud_markup)
+            bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
         elif message.text == 'Я участник':
             list_of_groups = db.get_executor_group(message.chat.id)
             if len(list_of_groups) == 0:
-                bot.send_message(message.chat.id,'Вы не состоите ни в одной группе❌',reply_markup=buttons.chooserole_markup)
+                bot.send_message(message.chat.id,'Вы не состоите ни в одной группе',reply_markup=buttons.chooserole_markup)
             else:
                 inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
-                bot.send_message(message.chat.id,'Выберите группу👥', reply_markup=inline_groups_markup)
+                bot.send_message(message.chat.id,'Выберите группу', reply_markup=inline_groups_markup)
             
             
         else:
             bot.set_state(message.from_user.id, states.Groups.choosertype)
-            bot.send_message(message.chat.id, "Выберите действие📔",reply_markup=buttons.chooseaction_markup)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.chooseaction_markup)
         #доделать
 
     @bot.message_handler(state=states.Groups.chooseactionadmin)
@@ -119,12 +118,12 @@ def main():
             group_id = data['group_id']
         if message.text == 'Удалить группу':
             db.delete_group(group_id)
-            bot.send_message(message.chat.id, "Вы удалили группу✅")
+            bot.send_message(message.chat.id, "Вы удалили группу")
         elif message.text == 'Удалить участника':
-            bot.send_message(message.chat.id,'Введите никнейм участника в формате @username 🆔')
+            bot.send_message(message.chat.id,'Введите никнейм участника в формате @username')
             bot.set_state(message.from_user.id, states.Groups.wait_username)
         else:
-            bot.send_message(message.chat.id,"Выберите действие📔",reply_markup=buttons.yarukoblud_markup)
+            bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.yarukoblud_markup)
             bot.set_state(message.from_user.id, states.Groups.chooseactionadmin)
             
     @bot.message_handler(state=states.Groups.wait_username)
@@ -133,11 +132,11 @@ def main():
             group_id = data['group_id']
         rez = db.delete_member(message.text,group_id)
         if rez == 0:
-            bot.send_message(message.chat.id,'Пользователь не найден❌')
+            bot.send_message(message.chat.id,'Пользователь не найден')
         else:
-            bot.send_message(message.chat.id,'Пользователь успешно удален✅')
+            bot.send_message(message.chat.id,'Пользователь успешно удален')
             bot.set_state(message.from_user.id, states.Groups.edit)
-            bot.send_message(message.chat.id,"Выберите действие📔",parse_mode='HTML',reply_markup=buttons.changegr_markup)
+            bot.send_message(message.chat.id,"Выберите действие",parse_mode='HTML',reply_markup=buttons.changegr_markup)
         
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'admin')
     def get_group_info(call):
@@ -150,7 +149,7 @@ def main():
     @bot.message_handler(state=states.CreateGroup.entername)
     def entername(message):
         if not db.check_doubled_name(message.chat.id,message.text):
-            bot.send_message(message.chat.id,'У вас уже есть группа с таким названием, пожалуйста, придумайте новое❌')
+            bot.send_message(message.chat.id,'У вас уже есть группа с таким названием, пожалуйста, придумайте новое')
         else:
             db.create_group(message.text,message.chat.id)
             invite_id = "Твой идентификатор группы: " + message.text +"_"+ str(db.get_id_group(message.chat.id,message.text))
@@ -169,19 +168,19 @@ def main():
         with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
             data['group_id'] = group_id
         bot.set_state(call.from_user.id, states.RandomStates.chose_leave)
-        bot.send_message(call.message.chat.id,"Выберите действие📔",reply_markup=buttons.uchastchange_markup)
+        bot.send_message(call.message.chat.id,"Выберите действие",reply_markup=buttons.uchastchange_markup)
         
     @bot.message_handler(state= states.RandomStates.chose_leave)
     def chose_executor_reaction(message):
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
             group_id = data['group_id']
-        if message.text == 'Выйти из группы❌':
+        if message.text == 'Выйти из группы':
             db.leave_group(group_id,message.chat.id)
             bot.set_state(message.from_user.id, states.Groups.chooserole)
-            bot.send_message(message.chat.id, "Вы успешно вышли из группы✅",reply_markup=buttons.chooserole_markup)
+            bot.send_message(message.chat.id, "Вы успешно вышли из группы",reply_markup=buttons.chooserole_markup)
         else:
             bot.set_state(message.from_user.id, states.Groups.chooserole)
-            bot.send_message(message.chat.id, "Выберите роль🎭",reply_markup=buttons.chooserole_markup)
+            bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
     
     
     
@@ -191,29 +190,29 @@ def main():
     def chsrole(message):
         if message.text == 'Я участник':
             bot.set_state(message.from_user.id, states.Tasks.choseactionmember)
-            bot.send_message(message.chat.id, "Выберите действие📔",reply_markup=buttons.zadruk_markup)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.zadruk_markup)
         elif message.text == 'Я руководитель':
             pass
         else:
             bot.set_state(message.from_user.id, states.RandomStates.start_work)
-            bot.send_message(message.chat.id, "Выберите действие📔",reply_markup=buttons.choosepoint_markup)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.choosepoint_markup)
             
     @bot.message_handler(state= states.Tasks.choseactionmember)
     def yahz(message):
         if message.text == 'Создать':
             list_of_groups = db.get_executor_group(message.chat.id)
             if len(list_of_groups) == 0:
-                bot.send_message(message.chat.id,'Вы не состоите ни в одной группе❌',reply_markup=buttons.chooserole_markup)
+                bot.send_message(message.chat.id,'Вы не состоите ни в одной группе',reply_markup=buttons.chooserole_markup)
             else:
                 inline_groups_markup_tasks = buttons.inline_get_list_executor_tasks(list_of_groups)
-                bot.send_message(message.chat.id,'Выберите группу👥', reply_markup=inline_groups_markup_tasks)
+                bot.send_message(message.chat.id,'Выберите группу', reply_markup=inline_groups_markup_tasks)
         elif message.text == 'Свободные':
             list_of_groups = db.get_executor_group(message.chat.id)
             if len(list_of_groups) == 0:
-                bot.send_message(message.chat.id,'Вы не состоите ни в одной группе❌',reply_markup=buttons.chooserole_markup)
+                bot.send_message(message.chat.id,'Вы не состоите ни в одной группе',reply_markup=buttons.chooserole_markup)
             else:
                 inline_groups_markup_tasks = buttons.inline_get_list_executor_free_tasks(list_of_groups)
-                bot.send_message(message.chat.id,'Выберите группу👥', reply_markup=inline_groups_markup_tasks)
+                bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup_tasks)
         
         
     
@@ -234,7 +233,7 @@ def main():
                 bot.send_message(message.chat.id,a[data['page']-1]['string'], reply_markup=markup_pages,parse_mode="HTML")
         else:
             bot.set_state(message.from_user.id, states.Groups.chooserole)
-            bot.send_message(message.chat.id, "Выберите роль🎭",reply_markup=buttons.chooserole_markup)
+            bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
     
     
     
@@ -256,7 +255,7 @@ def main():
                 markup_pages.row(left,pagination,right)
                 bot.send_message(call.message.chat.id,a[data['page']-1]['string'], reply_markup=markup_pages,parse_mode="HTML")
             else:
-                bot.send_message(call.message.chat.id,'В этой группе нет свободных заданий❌',reply_markup=buttons.zadruk_markup)
+                bot.send_message(call.message.chat.id,'В этой группе нет свободных тасков',reply_markup=buttons.zadruk_markup)
                 bot.set_state(call.from_user.id, states.Tasks.choseactionmember)
 
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[1] == 'inlinelistfree')
@@ -292,9 +291,9 @@ def main():
                     bot.edit_message_text(a[data['page']-1]['string'], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id,parse_mode="HTML")
             elif cmd == 'settask':
                 db.take_free_task(call.message.chat.id,a[data['page']-1]['task_id'])
-                bot.send_message(call.message.chat.id,"Вы стали исполнителем задания✅")
+                bot.send_message(call.message.chat.id,"Вы стали исполнителем таска")
             elif data['all_pages'] == 0:
-                bot.send_message(call.message.chat.id,'У вас нет активных заданий❌',reply_markup=buttons.zadruk_markup)
+                bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
                 bot.set_state(call.from_user.id, states.Tasks.choseactionmember)
         
     
@@ -329,7 +328,7 @@ def main():
                     bot.edit_message_text(a[data['page']-1]['string'], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id,parse_mode="HTML")
             elif cmd == 'send':
                 bot.set_state(call.from_user.id, states.Tasks.createreview)
-                bot.send_message(call.message.chat.id,"Введите отчёт📔.\n" 
+                bot.send_message(call.message.chat.id,"Введите отчёт.\n" 
                     "Отчёт должен содержать:\n" 
                     "1. Здачу\n"
                     "2. Цель\n"
@@ -338,7 +337,7 @@ def main():
                 page = int(data['page'])-1
                 data['cur_task_id'] = a[page]['task_id']
             elif data['all_pages'] == 0:
-                bot.send_message(call.message.chat.id,'У вас нет активных заданий❌',reply_markup=buttons.zadruk_markup)
+                bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
                 bot.set_state(call.from_user.id, states.Tasks.choseactionmember)
         
         
@@ -349,7 +348,7 @@ def main():
             with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
                     task = data['cur_task_id']
                     db.send_review(task, message.text)
-                    bot.send_message(message.chat.id,'Вы успешно сдали отчет✅',reply_markup=buttons.zadruk_markup)
+                    bot.send_message(message.chat.id,'Вы успешно сдали отчет',reply_markup=buttons.zadruk_markup)
                     bot.set_state(message.from_user.id, states.Tasks.choseactionmember)
                     
     
@@ -359,14 +358,14 @@ def main():
         with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
             data['group_id'] = group_id
         bot.set_state(call.from_user.id, states.Tasks.name)
-        bot.send_message(call.message.chat.id,"Введите название задания💬")
+        bot.send_message(call.message.chat.id,"Введите имя таска")
         
     @bot.message_handler(state= states.Tasks.name)
     def chose_executor_reaction(message):
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
             data['task_name'] = message.text
         bot.set_state(message.from_user.id, states.Tasks.description)
-        bot.send_message(message.chat.id,"Введите описание задания💬")
+        bot.send_message(message.chat.id,"Введите описание")
         
     @bot.message_handler(state= states.Tasks.description)
     def chose_executor_reaction(message):
@@ -390,14 +389,14 @@ def main():
             data_parse = data['full_dict']
         if message.text == "Сохранить":
             db.add_task_user(data_parse)
-            bot.send_message(message.chat.id,'Вы успешно добавили задание✅',reply_markup=buttons.zadruk_markup)
+            bot.send_message(message.chat.id,'Вы успешно добавили задание',reply_markup=buttons.zadruk_markup)
             bot.set_state(message.from_user.id, states.Tasks.choseactionmember)
         elif message.text == "Изменить":
             bot.set_state(message.from_user.id, states.Tasks.choosechange)
-            bot.send_message(message.chat.id,'Выберите, куда хотите внести изменения💬',reply_markup=buttons.changing_markup)
+            bot.send_message(message.chat.id,'Выберите куда хотите внести изменения',reply_markup=buttons.changing_markup)
         else:
             bot.set_state(message.from_user.id, states.Tasks.choseactionmember)
-            bot.send_message(message.chat.id, "Выберите действие📔",reply_markup=buttons.zadruk_markup)
+            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.zadruk_markup)
             
             
             
@@ -405,17 +404,17 @@ def main():
     def chose_executor_reaction(message):
         if message.text == "Название":
             bot.set_state(message.from_user.id, states.Tasks.changename)
-            bot.send_message(message.chat.id,'Введите новое название💬',reply_markup=None)
+            bot.send_message(message.chat.id,'Введите новое название',reply_markup=None)
             
         else:
             bot.set_state(message.from_user.id, states.Tasks.changedesc)
-            bot.send_message(message.chat.id,'Введите новое описание💬',reply_markup=None)
+            bot.send_message(message.chat.id,'Введите новое описание',reply_markup=None)
             
     @bot.message_handler(state= states.Tasks.changename)
     def chose_executor_reaction(message):
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
             data['full_dict']['task_name'] = message.text
-        bot.send_message(message.chat.id,"Выберите действие📔",reply_markup=buttons.zadacha_markup)
+        bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.zadacha_markup)
         bot.set_state(message.from_user.id, states.Tasks.wait)
         
             
@@ -423,7 +422,7 @@ def main():
     def chose_executor_reaction(message):
         with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
             data['full_dict']['task_description'] = message.text
-        bot.send_message(message.chat.id,"Выберите действие📔",reply_markup=buttons.zadacha_markup)
+        bot.send_message(message.chat.id,"Выберите действие",reply_markup=buttons.zadacha_markup)
         bot.set_state(message.from_user.id, states.Tasks.wait)
             
     
