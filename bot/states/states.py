@@ -11,6 +11,7 @@ class Groups(StatesGroup):
     chooseactionadmin = State()
     editgroup = State()
     edit = State()
+    wait_username = State()
     
 class Tasks(StatesGroup):
     chooserole = State()
@@ -23,3 +24,18 @@ class RandomStates(StatesGroup):
     register = State()
     start_work = State()
     wait_invite_link = State()
+    chose_leave = State()
+    
+    
+    
+class Tasks(StatesGroup):
+    choserole = State()
+    choseactionmember = State()
+    creating = State()
+    name = State()
+    description = State()
+    wait = State()
+    choosechange = State()
+    changename = State()
+    changedesc = State()
+    

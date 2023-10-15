@@ -1,21 +1,15 @@
 import sqlalchemy as sq
 from sqlalchemy.orm import sessionmaker
-from model import create_tables, Users, Tasks, GroupExecutor, AllGroup
+from db.model import create_tables, Users, Tasks, GroupExecutor, AllGroup
 DSN = 'postgresql://postgres:pana@localhost:5432/database'
 engine = sq.create_engine(DSN)
 create_tables(engine)
 
-class color:
-   PURPLE = '\033[95m'
-   CYAN = '\033[96m'
-   DARKCYAN = '\033[36m'
-   BLUE = '\033[94m'
-   GREEN = '\033[92m'
-   YELLOW = '\033[93m'
-   RED = '\033[91m'
-   BOLD = '\033[1m'
-   UNDERLINE = '\033[4m'
-   END = '\033[0m'
+def save_data(file_name):
+    with open(file_name, 'rb') as file:
+        file_data = file.read()
+    return file_data
+
 def make_session():
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -28,10 +22,27 @@ def register_user(user_id,name,username):
     session.commit()
     session.close()
 
-def add_task(task_name, task_description):
+def add_task_user(dict_data):
+    task_name = dict_data['task_name']
+    task_description = dict_data['task_description']
+    user_id = dict_data['user_id']
+    task_group = dict_data['group_id']
     session = make_session()
-    new_task = Tasks(name_task=task_name, description_task=task_description)
+    new_task = Tasks(name_task=task_name, description_task=task_description, user_take=user_id, task_group=task_group)
     session.add(new_task)
+    session.commit()
+    session.close()
+
+def add_task_admin():
+    pass
+def edit_task_user_name(task_id,new_name):
+    session = make_session()
+    update = session.query(Tasks).filter(Tasks.task_id == task_id).update({'name_task':new_name})
+    session.commit()
+    session.close()
+def edit_task_user_description(task_id,new_description):
+    session = make_session()
+    update = session.query(Tasks).filter(Tasks.task_id == task_id).update({'description_task': new_description})
     session.commit()
     session.close()
 
@@ -62,12 +73,14 @@ def create_invite_id(group_name, admin_id):
 # create_invite_id('sdg',481370222)
 
 # create_group(name='newgroup',admin=222)
+
 def get_id_group(admin_id, group_name):
     session = make_session()
     for c in session.query(AllGroup).filter(AllGroup.admin_id == admin_id).all():
         if c.group_name == group_name:
             session.close()
             return c.group_id
+
 def check_doubled_name(admin_id, group_name):
     session = make_session()
     for c in session.query(AllGroup).filter(AllGroup.admin_id == admin_id).all():
@@ -76,6 +89,7 @@ def check_doubled_name(admin_id, group_name):
             return False
     session.close()
     return True
+
 def check_user(user_id):
     session = make_session()
     if session.query(Users).filter(Users.user_id == user_id).all() == []:
@@ -84,6 +98,7 @@ def check_user(user_id):
     else:
         session.close()
         return False
+
 def join_group(invite_id, user_id):
     group_name, group_id = invite_id.split('_')
     session = make_session()
@@ -95,7 +110,7 @@ def join_group(invite_id, user_id):
     session.commit()
     session.close()
 
-# join_group('лопил_8',934478159)
+# join_group('lnkln_3',934478159)
 def get_admin_groups(user_id):
     session = make_session()
     arr = []
@@ -106,24 +121,23 @@ def get_admin_groups(user_id):
     else:
         return arr
 
-
-
-def delete_group(invite_id):
+def delete_group(group_id):
     session = make_session()
-    delete = session.query(AllGroup).filter(AllGroup.invite_id == invite_id).delete()
+    delete = session.query(AllGroup).filter(AllGroup.group_id == group_id).delete()
+    delete_m = session.query(GroupExecutor).filter(GroupExecutor.group_id == int(group_id)).delete()
+
     session.commit()
     session.close()
-
-
 
 def delete_member(username,group_id):
     session = make_session()
     user_id = 0
     for c in session.query(Users).filter(Users.username == username).all():
         user_id = c.user_id
-    delete = session.query(GroupExecutor).filter(GroupExecutor.group_id == group_id).filter(GroupExecutor.user_id == user_id).delete()
+    res = session.query(GroupExecutor).filter(GroupExecutor.group_id == group_id).filter(GroupExecutor.user_id == user_id).delete()
     session.commit()
     session.close()
+    return res
 
 def info_groups(group_id):
     session = make_session()
@@ -134,11 +148,25 @@ def info_groups(group_id):
         group_name = c.group_name
     for c in session.query(GroupExecutor).filter(GroupExecutor.group_id == group_id).all():
         count_members += 1
-    result = color.BOLD + group_name + color.END + '\n' + '    ' + 'Количество участинков: ' + str(count_members) + '\n' + '    ' + 'Количество заданий: ' + str(count_tasks)
+    result = '<b>' + group_name + '</b>' + '\n' + '    ' + 'Количество участников: ' + str(count_members) + '\n' + '    ' + 'Количество заданий: ' + str(count_tasks)
     return result
 
-def get_executor_group():
-    pass
+def get_executor_group(user_id):
+    session = make_session()
+    arr = []
+    for c in session.query(GroupExecutor).filter(GroupExecutor.user_id == user_id).all():
+        arr.append({'Group name' : c.group_name, 'Group id' : c.group_id})
+    if arr == []:
+        return []
+    else:
+        return arr
+
+def leave_group(group_id,user_id):
+    session = make_session()
+    delete = session.query(GroupExecutor).filter(GroupExecutor.group_id == group_id).filter(GroupExecutor.user_id == user_id).delete()
+    session.commit()
+    session.close()
+    return delete
 
 
 
