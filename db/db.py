@@ -146,15 +146,21 @@ def check_user(user_id):
         return False
 
 def join_group(invite_id, user_id):
-    group_name, group_id = invite_id.split('_')
-    session = make_session()
-    ses = 0
-    for c in session.query(AllGroup).filter(AllGroup.group_id == int(group_id)).all():
-        ses = c.admin_id
-    new_worker = GroupExecutor(user_id=user_id,group_id=group_id,group_name=group_name,admin_id=ses)
-    session.add(new_worker)
-    session.commit()
-    session.close()
+    try:
+        group_name, group_id = invite_id.split('_')
+        session = make_session()
+        ses = 0
+        new_worker = 0
+        for c in session.query(AllGroup).filter(AllGroup.group_id == int(group_id)).all():
+            ses = c.admin_id
+        new_worker = GroupExecutor(user_id=user_id, group_id=group_id, group_name=group_name, admin_id=ses)
+        session.add(new_worker)
+        session.commit()
+        session.close()
+        return True
+    except:
+        return False
+
 
 # join_group('lnkln_3',934478159)
 def get_admin_groups(user_id):

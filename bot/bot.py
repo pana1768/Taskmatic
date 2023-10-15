@@ -28,7 +28,7 @@ def main():
         if db.join_group(message.text, message.chat.id):
             bot.send_message(message.chat.id, "Вы успешно добавились в группу✅")
         else:
-            bot.send_message(message.chat.id, "Неверный идентефикатор группы✅")
+            bot.send_message(message.chat.id, "Неверный идентефикатор группы")
     
     
     
