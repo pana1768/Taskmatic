@@ -1,6 +1,6 @@
 import sqlalchemy as sq
 from sqlalchemy.orm import sessionmaker
-from model import create_tables, Users, Tasks, GroupExecutor, AllGroup
+from db.model import create_tables, Users, Tasks, GroupExecutor, AllGroup
 DSN = 'postgresql://postgres:pana@localhost:5432/database'
 engine = sq.create_engine(DSN)
 create_tables(engine)
@@ -9,6 +9,19 @@ def save_data(file_name):
     with open(file_name, 'rb') as file:
         file_data = file.read()
     return file_data
+
+def get_free_task(group_id):
+    session = make_session()
+    arr = []
+    for c in session.query(Tasks).filter(Tasks.task_group == group_id).filter(Tasks.status_task == 'free').all():
+        arr.append({'string' : '<b>'+c.name_task+'</b>'+ '\n' + '    '+c.description_task, 'task_id' : c.task_id})
+    return arr
+
+def take_free_task(user_id,task_id):
+    session = make_session()
+    update = session.query(Tasks).filter(Tasks.task_id == task_id).update({'user_take':user_id, 'status_task' : 'today'})
+    session.commit()
+    session.close()
 
 def get_tasts_group():
     pass
@@ -42,11 +55,14 @@ def get_tasks_user(user_id):
     session = make_session()
     arr = []
     for c in session.query(Tasks).filter(Tasks.user_take == user_id).filter(Tasks.status_task == 'today').all():
-        arr.append('<b>'+c.name_task+'</b>'+ '\n' + '    '+c.description_task)
+        arr.append({'string' : '<b>'+c.name_task+'</b>'+ '\n' + '    '+c.description_task, 'task_id' : c.task_id})
     return arr
 
-
-
+def send_review(task_id,review):
+    session = make_session()
+    new = session.query(Tasks).filter(Tasks.task_id == task_id).update({'description_task':review, 'status_task' : 'sended'})
+    session.commit()
+    session.close()
 
 def add_task_admin():
     pass
@@ -163,6 +179,8 @@ def info_groups(group_id):
         group_name = c.group_name
     for c in session.query(GroupExecutor).filter(GroupExecutor.group_id == group_id).all():
         count_members += 1
+    for c in session.query(Tasks).filter(Tasks.task_group == group_id).all():
+        count_tasks += 1
     result = '<b>' + group_name + '</b>' + '\n' + '    ' + 'Количество участников: ' + str(count_members) + '\n' + '    ' + 'Количество заданий: ' + str(count_tasks)
     return result
 

@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="ввмвмацр">
+    <list default="true" id="fd06a832-742d-44fb-b79a-24ef704fce59" name="Changes" comment="get_admin">
+      <change afterPath="$PROJECT_DIR$/db/file.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bot/buttons/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot/buttons/buttons.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/db.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,14 +126,28 @@
       <option name="project" value="LOCAL" />
       <updated>1697330007388</updated>
     </task>
-    <task id="LOCAL-00012" summary="ввмвмацр">
-      <created>1697353555861</created>
+    <task id="LOCAL-00012" summary="get_admin">
+      <created>1697351007792</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1697353555861</updated>
+      <updated>1697351007792</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="get_admin">
+      <created>1697355161858</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1697355161858</updated>
+    </task>
+    <task id="LOCAL-00014" summary="get_admin">
+      <created>1697355266695</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1697355266695</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -153,8 +168,6 @@
     <MESSAGE value="добавила ещё кучу миллионов кнопок" />
     <MESSAGE value="get_group_id" />
     <MESSAGE value="get_admin" />
-    <MESSAGE value="люро" />
-    <MESSAGE value="ввмвмацр" />
-    <option name="LAST_COMMIT_MESSAGE" value="ввмвмацр" />
+    <option name="LAST_COMMIT_MESSAGE" value="get_admin" />
   </component>
 </project>
