@@ -205,8 +205,8 @@ def main():
             if len(list_of_groups) == 0:
                 bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
             else:
-                inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
-                bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup)
+                inline_groups_markup_tasks = buttons.inline_get_list_executor_tasks(list_of_groups)
+                bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup_tasks)
         elif message.text == 'Свободные':
             pass
         elif message.text == 'В процессе':
@@ -224,7 +224,7 @@ def main():
     #         inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
     #         bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup)
     
-    @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'executor')
+    @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'executortasks')
     def chose_group_executor(call):
         group_id = call.data.split('_')[1]
         with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
