@@ -5,6 +5,7 @@ from telebot.storage import StateMemoryStorage
 from telebot import custom_filters
 import db.db as db
 import logging
+import telebot.types as types
 logging.basicConfig(level=logging.WARNING, filename="py_log.log",filemode="w",
                     format="%(asctime)s %(levelname)s %(message)s")
 msg_id = None
@@ -19,7 +20,7 @@ def main():
         bot.register_next_step_handler(message,join_to_group)
     def join_to_group(message):
         db.join_group(message.text, message.chat.id)
-        bot.send_message(message.chat.id, "Вы успешно добавились в группу!📝")
+        bot.send_message(message.chat.id, "Вы успешно добавились в группу")
     
     
     
@@ -28,14 +29,17 @@ def main():
     def check_register(message):
         if db.check_user(message.chat.id):
             bot.set_state(message.from_user.id, states.RandomStates.register, message.chat.id)
-            bot.send_message(message.chat.id,"Добро пожаловать в Taskmatic!❤\n"
+            bot.send_message(message.chat.id,"Добро пожаловать в Taskmatic!\n"
                          "Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников групп.\n"
                          "Пожалуйста, введите свое имя для продолжения работы")
         else:
             bot.set_state(message.from_user.id, states.RandomStates.start_work, message.chat.id)
-            bot.send_message(message.chat.id,"Этот бот поможет вам удобно управлять задачами и быстро распределять их среди участников группы.\n"
-                             "Создайте группу, добавьте участников и побликуйте задачи, которые участники смогут выбрать и решить самостоятельно!\n"
-                             "Устанавливайте крайние даты решения, добавьте описание задач и работайте с другими функциями Taskmatic!\n", reply_markup=buttons.choosepoint_markup)
+            bot.send_message(message.chat.id,"Этот бот поможет вам удобно управлять задачами и\n"
+                             "быстро распределять их среди участников группы.\n"
+                             "Создайте группу, добавьте участников и побликуйте задачи,\n" 
+                             "которые участники смогут выбрать и решить самостоятельно!\n"
+                             "Устанавливайте крайние даты решения, добавьте описание задач и\n" 
+                             "работайте с другими функциями Taskmatic!\n",reply_markup=buttons.choosepoint_markup)
         
     @bot.message_handler(state=states.RandomStates.register)
     def register(message):
@@ -207,19 +211,51 @@ def main():
         elif message.text == 'Свободные':
             pass
         elif message.text == 'В процессе':
-
+            a = db.get_tasks_user(message.chat.id)
+            with bot.retrieve_data(message.from_user.id,message.chat.id) as data:
+                data['all_pages'] = len(a)
+                data['page'] = 1
+                pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+                send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
+                right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
+                left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
+                markup_pages = types.InlineKeyboardMarkup().add(send,left,pagination,right)
+                bot.send_message(message.chat.id,a[data['page']], reply_markup=markup_pages)
         else:
             bot.set_state(message.from_user.id, states.Groups.chooserole)
             bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
     
-    # @bot.message_handler(state= states.Tasks.creating)
-    # def chose_group(message):
-    #     list_of_groups = db.get_executor_group(message.chat.id)
-    #     if len(list_of_groups) == 0:
-    #         bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
-    #     else:
-    #         inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
-    #         bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup)
+    @bot.callback_query_handler(func=lambda call: call.data.split('_')[1] == 'inlinelist')
+    def chose_group_executor(call):
+        cmd = call.data.split('_')[0]
+        a = db.get_tasks_user(call.message.chat.id)
+        with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
+            all_pages = data['all_pages']
+            cur_page = data['page']
+            if cmd == 'right':
+                if data['page'] + 1 <= data['all_pages']:
+                    data['page']+=1
+                pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+                send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
+                right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
+                left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
+                markup_pages = types.InlineKeyboardMarkup.add(send,left,pagination,right)
+                bot.send_message(call.message.chat.id,a[data['page']], reply_markup=markup_pages)
+            elif cmd == 'left':
+                if data['page'] - 1 > 0:
+                    data['page'] -= 1
+                    pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+                    send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
+                    right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
+                    left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
+                    markup_pages = types.InlineKeyboardMarkup.add(send,left,pagination,right)
+                    bot.send_message(call.message.chat.id,a[data['page']], reply_markup=markup_pages)
+        
+            elif data['all_pages'] == 0:
+                bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
+                bot.set_state(call.from_user.id, states.Tasks.choseactionmember)
+        
+        
     
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'executortasks')
     def chose_group_executor(call):
@@ -227,7 +263,7 @@ def main():
         with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
             data['group_id'] = group_id
         bot.set_state(call.from_user.id, states.Tasks.name)
-        bot.send_message(call.message.chat.id,"Введите имя задания")
+        bot.send_message(call.message.chat.id,"Введите имя таска")
         
     @bot.message_handler(state= states.Tasks.name)
     def chose_executor_reaction(message):
@@ -258,7 +294,7 @@ def main():
             data_parse = data['full_dict']
         if message.text == "Сохранить":
             db.add_task_user(data_parse)
-            bot.send_message(message.chat.id,'Вы успешно добавили задание',reply_markup=buttons.zadruk_markup)
+            bot.send_message(message.chat.id,'Вы успешно добавили таск',reply_markup=buttons.zadruk_markup)
             bot.set_state(message.from_user.id, states.Tasks.choseactionmember)
         elif message.text == "Изменить":
             bot.set_state(message.from_user.id, states.Tasks.choosechange)
@@ -301,3 +337,4 @@ def main():
     bot.infinity_polling()
 if __name__ == "__main__":
     main()
+

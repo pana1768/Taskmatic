@@ -114,8 +114,6 @@ def inline_get_list_executor_tasks(list_groups:list)->types.InlineKeyboardMarkup
 backup_markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 backup_markup.add(zhopa)
 
-def inline_list_process(ln):
-    send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
-    right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
-    left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
+
+    
     
