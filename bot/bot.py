@@ -201,8 +201,12 @@ def main():
     @bot.message_handler(state= states.Tasks.choseactionmember)
     def yahz(message):
         if message.text == 'Создать':
-            bot.set_state(message.from_user.id, states.Tasks.creating)
-            bot.send_message(message.chat.id, "Выберите действие",reply_markup=buttons.choosepoint_markup)
+            list_of_groups = db.get_executor_group(message.chat.id)
+            if len(list_of_groups) == 0:
+                bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
+            else:
+                inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
+                bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup)
         elif message.text == 'Свободные':
             pass
         elif message.text == 'В процессе':
@@ -211,14 +215,14 @@ def main():
             bot.set_state(message.from_user.id, states.Groups.chooserole)
             bot.send_message(message.chat.id, "Выберите роль",reply_markup=buttons.chooserole_markup)
     
-    @bot.message_handler(state= states.Tasks.creating)
-    def chose_group(message):
-        list_of_groups = db.get_executor_group(message.chat.id)
-        if len(list_of_groups) == 0:
-            bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
-        else:
-            inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
-            bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup)
+    # @bot.message_handler(state= states.Tasks.creating)
+    # def chose_group(message):
+    #     list_of_groups = db.get_executor_group(message.chat.id)
+    #     if len(list_of_groups) == 0:
+    #         bot.send_message(message.chat.id,'Вы не состоите не в одной группе',reply_markup=buttons.chooserole_markup)
+    #     else:
+    #         inline_groups_markup = buttons.inline_get_list_executor(list_of_groups)
+    #         bot.send_message(message.chat.id,'Выберите группу:', reply_markup=inline_groups_markup)
     
     @bot.callback_query_handler(func=lambda call: call.data.split('_')[0] == 'executor')
     def chose_group_executor(call):
