@@ -235,25 +235,25 @@ def main():
             if cmd == 'right':
                 if data['page'] + 1 <= data['all_pages']:
                     data['page']+=1
-                pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
-                send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
-                right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
-                left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
-                markup_pages = types.InlineKeyboardMarkup()
-                markup_pages.row(send)
-                markup_pages.row(left,pagination,right)
-                bot.edit_message_text(a[data['page']], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id)
+                    pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
+                    send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
+                    right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
+                    left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
+                    markup_pages = types.InlineKeyboardMarkup()
+                    markup_pages.row(send)
+                    markup_pages.row(left,pagination,right)
+                    bot.edit_message_text(a[data['page']], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id)
             elif cmd == 'left':
                 if data['page'] - 1 > 0:
                     data['page'] -= 1
                     pagination = types.InlineKeyboardButton(f'{data["page"]}/{data["all_pages"]}',callback_data='send_inlinelist')
-                send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
-                right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
-                left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
-                markup_pages = types.InlineKeyboardMarkup()
-                markup_pages.row(send)
-                markup_pages.row(left,pagination,right)
-                bot.edit_message_text(a[data['page']], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id)
+                    send = types.InlineKeyboardButton('Сдать',callback_data='send_inlinelist')
+                    right = types.InlineKeyboardButton('->',callback_data='right_inlinelist')
+                    left = types.InlineKeyboardButton('<-',callback_data='left_inlinelist')
+                    markup_pages = types.InlineKeyboardMarkup()
+                    markup_pages.row(send)
+                    markup_pages.row(left,pagination,right)
+                    bot.edit_message_text(a[data['page']], reply_markup = markup_pages, chat_id=call.message.chat.id, message_id=call.message.message_id)
         
             elif data['all_pages'] == 0:
                 bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
