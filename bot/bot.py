@@ -251,7 +251,9 @@ def main():
                     markup_pages = types.InlineKeyboardMarkup.add(send,left,pagination,right)
                     bot.send_message(call.message.chat.id,a[data['page']], reply_markup=markup_pages)
         
-        
+            elif data['all_pages'] == 0:
+                bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
+                bot.set_state(call.from_user.id, states.Tasks.choseactionmember)
         
         
     
