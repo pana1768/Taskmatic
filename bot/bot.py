@@ -264,9 +264,8 @@ def main():
                     "2. Цель\n"
                     "3. Процесс выполнения\n"
                     "4. Итог\n")
-                with bot.retrieve_data(call.from_user.id,call.message.chat.id) as data:
-                    page = int(data['page'])
-                    data['cur_task_id'] = a[page-1]['task_id']
+                page = int(data['page'])
+                data['cur_task_id'] = a[page-1]['task_id']
             elif data['all_pages'] == 0:
                 bot.send_message(call.message.chat.id,'У вас нет активных заданий',reply_markup=buttons.zadruk_markup)
                 bot.set_state(call.from_user.id, states.Tasks.choseactionmember)
